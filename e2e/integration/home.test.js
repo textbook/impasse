@@ -3,7 +3,7 @@ beforeEach(() => {
 });
 
 it("displays the site", () => {
-	cy.get("[data-qa=\"message\"]").should("contain.text", "Hello, world!");
+	cy.get("[data-qa=\"title\"]").should("contain.text", "Impasse");
 });
 
 it("meets basic accessibility guidelines", () => {
