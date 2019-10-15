@@ -1,0 +1,15 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "@codeyourfuture/standard",
+    "plugin:jest/recommended"
+  ],
+  "globals": {
+    "defer": false,
+    "tick": false
+  },
+  "parser": "babel-eslint"
+}
