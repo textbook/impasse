@@ -1,7 +1,7 @@
 {
-  "name": "starter-kit",
+  "name": "impasse",
   "version": "0.0.1",
-  "description": "Starter kit for full-stack JavaScript projects",
+  "description": "Generate moderately secure passwords",
   "private": true,
   "scripts": {
     "prebuild": "npm run cleanup",
@@ -28,14 +28,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/textbook/starter-kit.git"
+    "url": "git+https://github.com/textbook/impasse.git"
   },
   "author": "Jonathan Sharpe <mail@jonrshar.pe>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/textbook/starter-kit/issues"
+    "url": "https://github.com/textbook/impasse/issues"
   },
-  "homepage": "https://github.com/textbook/starter-kit#readme",
+  "homepage": "https://github.com/textbook/impasse#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
