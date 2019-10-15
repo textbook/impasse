@@ -1,20 +1,24 @@
-import axios from "axios";
-
+import { get } from "./client";
 import { getMessage } from "./service";
+
+jest.mock("./client");
 
 describe("service", () => {
 	describe("getMessage", ()  => {
+		const message = "Take me to your leader";
+
+		beforeEach(() => {
+			get.mockResolvedValue({ message });
+		});
+
 		it("makes a request", async () => {
 			await getMessage();
 
-			expect(axios.get).toHaveBeenCalledWith("/api");
+			expect(get).toHaveBeenCalledWith("/api");
 		});
 
-		it("exposes the data", () => {
-			const message = "Take me to your leader";
-			axios.get.mockResolvedValue({ data: { message } });
-
-			expect(getMessage()).resolves.toBe(message);
+		it("exposes the data", async () => {
+			await expect(getMessage()).resolves.toEqual(message);
 		});
 	});
 });
