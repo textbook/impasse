@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 
 import { App } from "./App";
-import { getMessage } from "./service";
+import { getPassword } from "./service";
 
 jest.mock("./service");
 
@@ -14,12 +14,12 @@ describe("App", () => {
 
 	beforeEach(() => {
 		deferred = defer();
-		getMessage.mockReturnValue(deferred.promise);
+		getPassword.mockReturnValue(deferred.promise);
 		wrapper = render(<App />);
 	});
 
-	it("requests the message", () => {
-		expect(getMessage).toHaveBeenCalled();
+	it("requests the password", () => {
+		expect(getPassword).toHaveBeenCalled();
 	});
 
 	it("displays a title", async () => {
@@ -28,7 +28,7 @@ describe("App", () => {
 	});
 
 	it("shows a loading state", async () => {
-		expect(wrapper.getByTestId("message")).toHaveTextContent("Loading...");
+		expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
 	});
 
 	describe("when request resolves", () => {
@@ -37,9 +37,8 @@ describe("App", () => {
 			await tick();
 		});
 
-		it("displays message", async () => {
-			let element = wrapper.getByTestId("message");
-			expect(element).toHaveTextContent(message);
+		it("displays password", async () => {
+			expect(wrapper.getByTestId("password")).toHaveTextContent(message);
 		});
 	});
 });

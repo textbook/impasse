@@ -4,6 +4,8 @@ import morgan from "morgan";
 import path from "path";
 
 import { httpsOnly } from "./helpers";
+import password from "./password";
+import getWords from "./words";
 
 const app = express();
 
@@ -16,7 +18,10 @@ if (app.get("env") === "production") {
 }
 
 app.get("/api", (_, res) => {
-	res.json({ message: "Hello, world!" });
+	getWords()
+		.then((words) => words.filter((word) => word.length >= 8 && word.length <= 10))
+		.then((words) => res.json({ password: password(words) }))
+		.catch(() => res.sendStatus(500));
 });
 
 app.use(express.static(path.join(__dirname, "static")));
