@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitForElementToBeRemoved } from "@testing-library/react";
 
 import { App } from "./App";
 import { getPassword } from "./service";
@@ -44,6 +44,26 @@ describe("App", () => {
 		it("returns to the loading state when the config changes", () => {
 			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
 			expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
+		});
+	});
+
+	describe("when request rejects", () => {
+		beforeEach(async () => {
+			deferred.reject(message);
+			await tick();
+		});
+
+		it("displays the error message", () => {
+			expect(wrapper.getByTestId("password")).toHaveTextContent("No password available");
+			expect(wrapper.getByTestId("error")).toHaveTextContent(message);
+		});
+
+		it("clears the error message when successful", async () => {
+			const newPassword = "yay!";
+			getPassword.mockResolvedValue(newPassword);
+			fireEvent.click(wrapper.getByTestId("refresh"));
+			await waitForElementToBeRemoved(() => wrapper.getByTestId("error"));
+			expect(wrapper.getByTestId("password")).toHaveTextContent(newPassword);
 		});
 	});
 

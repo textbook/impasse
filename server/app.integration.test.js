@@ -10,4 +10,10 @@ describe("password API", () => {
 				expect(res.body.password).toMatch(/[a-z]{7}\d{2}[a-z]{7}[!@#$%^&*]/);
 			});
 	});
+
+	it("rejects inappropriate configuration", async () => {
+		await request(app)
+			.get("/api").query({ min: 10, max: 5 })
+			.expect(400, { error: "Maximum length cannot be less than minimum length" });
+	});
 });

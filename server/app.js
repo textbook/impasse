@@ -18,7 +18,11 @@ if (app.get("env") === "production") {
 }
 
 app.get("/api", (req, res) => {
-	const { min = 8, max = 10 } = req.query;
+	const min = parseInt(req.query.min || "8", 10);
+	const max = parseInt(req.query.max || "10", 10);
+	if (max < min) {
+		return res.status(400).json({ error: "Maximum length cannot be less than minimum length" });
+	}
 	getWords()
 		.then((words) => words.filter((word) => word.length >= min && word.length <= max))
 		.then((words) => res.json({ password: password(words) }))

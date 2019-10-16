@@ -34,4 +34,16 @@ describe("service integration", () => {
 		expect(result).toBe(password);
 		scope.done();
 	});
+
+	it("exposes error messages on failure", async () => {
+		const error = "pranged it";
+		const scope = nock(baseUrl)
+			.get("/api")
+			.reply(400, { error });
+
+		await getPassword().catch((result) => {
+			expect(result).toBe(error);
+			scope.done();
+		});
+	});
 });
