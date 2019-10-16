@@ -9,7 +9,8 @@ export class App extends Component {
 			min: 8,
 			max: 10,
 		},
-		password: "Loading...",
+		loading: true,
+		password: null,
 	};
 
 	componentDidMount () {
@@ -22,16 +23,18 @@ export class App extends Component {
 
 	updatePassword = () => {
 		const { config } = this.state;
-		getPassword(config).then((password) => this.setState({ password }));
+		this.setState({ loading: true }, () => {
+			getPassword(config).then((password) => this.setState({ loading: false, password }));
+		});
 	};
 
 	render() {
-		const { config, password } = this.state;
+		const { config, loading, password } = this.state;
 		return (
 			<main role="main">
 				<div>
 					<h1 data-qa="title">Impasse</h1>
-					<p data-qa="password">{password}</p>
+					<p data-qa="password">{loading ? "Loading..." : password}</p>
 					<Config config={config} onChange={this.updateConfig} />
 				</div>
 			</main>

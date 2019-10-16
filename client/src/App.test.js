@@ -40,6 +40,11 @@ describe("App", () => {
 		it("displays password", async () => {
 			expect(wrapper.getByTestId("password")).toHaveTextContent(message);
 		});
+
+		it("returns to the loading state when the config changes", () => {
+			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
+			expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
+		});
 	});
 
 	describe("configuration", () => {
