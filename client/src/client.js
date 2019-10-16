@@ -1,3 +1,3 @@
 import axios from "axios";
 
-export const get = (url) => axios.get(url).then((res) => res.data);
+export const get = (url, params) => axios.get(url, { params }).then((res) => res.data);

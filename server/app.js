@@ -17,9 +17,10 @@ if (app.get("env") === "production") {
 	app.use(httpsOnly());
 }
 
-app.get("/api", (_, res) => {
+app.get("/api", (req, res) => {
+	const { min = 8, max = 10 } = req.query;
 	getWords()
-		.then((words) => words.filter((word) => word.length >= 8 && word.length <= 10))
+		.then((words) => words.filter((word) => word.length >= min && word.length <= max))
 		.then((words) => res.json({ password: password(words) }))
 		.catch(() => res.sendStatus(500));
 });

@@ -1,6 +1,6 @@
 import { get } from "./client";
 
-export const getPassword = async () => {
-	const response = await get("/api");
+export const getPassword = async (query = {}) => {
+	const response = await get("/api", query);
 	return response.password;
 };

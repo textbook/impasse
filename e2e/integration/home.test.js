@@ -12,6 +12,15 @@ it("meets basic accessibility guidelines", () => {
 });
 
 it("displays a password", () => {
-	const password = /[a-z]{8,10}\d{2}[a-z]{8,10}[!@#$%^&*]/;
-	cy.getDataQa("password").invoke("text").should("match", password);
+	cy.getDataQa("password").invoke("text").should("match", regex());
 });
+
+it("allows the password to be configured", () => {
+	cy.getDataQa("minLength").clear().type(7);
+	cy.getDataQa("maxLength").clear().type(7);
+
+	cy.getDataQa("password").invoke("text").should("match", regex({ minLength: 7, maxLength: 7 }));
+});
+
+const regex = ({ minLength = 8, maxLength = 10, digits = 2 } = {}) =>
+	new RegExp(`[a-z]{${minLength},${maxLength}}\\d{${digits}}[a-z]{${minLength},${maxLength}}[!@#$%^&*]`);
