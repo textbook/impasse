@@ -47,6 +47,12 @@ describe("App", () => {
 		});
 	});
 
+	it("makes a request in response to refresh request", () => {
+		getPassword.mockClear();
+		fireEvent.click(wrapper.getByTestId("refresh"));
+		expect(getPassword).toHaveBeenCalledWith({ min: 8, max: 10 });
+	});
+
 	describe("configuration", () => {
 		it("renders Config", () => {
 			expect(wrapper.getByTestId("minLength")).toHaveValue(8);

@@ -15,6 +15,13 @@ it("displays a password", () => {
 	cy.getDataQa("password").invoke("text").should("match", regex());
 });
 
+it("allows the password to be refreshed", () => {
+	cy.getDataQa("password").invoke("text").should("match", regex()).then((oldText) => {
+		cy.getDataQa("refresh").click();
+		cy.getDataQa("password").should("not.contain.text", oldText);
+	});
+});
+
 it("allows the password to be configured", () => {
 	cy.getDataQa("minLength").clear().type(7);
 	cy.getDataQa("maxLength").clear().type(7);

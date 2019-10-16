@@ -35,6 +35,7 @@ export class App extends Component {
 				<div>
 					<h1 data-qa="title">Impasse</h1>
 					<p data-qa="password">{loading ? "Loading..." : password}</p>
+					<button data-qa="refresh" onClick={this.updatePassword}>Refresh</button>
 					<Config config={config} onChange={this.updateConfig} />
 				</div>
 			</main>
