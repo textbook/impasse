@@ -1,6 +1,8 @@
 Impasse
 =======
 
+[![Build Status](https://travis-ci.org/textbook/impasse.svg?branch=master)](https://travis-ci.org/textbook/impasse)
+
 Generate moderately secure passwords
 
 Scripts
