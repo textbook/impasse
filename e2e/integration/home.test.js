@@ -30,11 +30,19 @@ it("allows the password to be configured", () => {
 	cy.getDataQa("password").invoke("text").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
 });
 
-it("validates the input", () => {
+it("validates the word length input", () => {
 	cy.getDataQa("minLength").clear().type(10);
 	cy.getDataQa("maxLength").clear().type(8);
 
+	cy.getDataQa("password").should("contain.text", "No password available");
 	cy.getDataQa("error").should("contain.text", "Maximum length cannot be less than minimum length");
+});
+
+it("validates the digits input", () => {
+	cy.getDataQa("digits").clear().type(-2);
+
+	cy.getDataQa("password").should("contain.text", "No password available");
+	cy.getDataQa("error").should("contain.text", "Number of digits must be positive");
 });
 
 const regex = ({ minLength = 8, maxLength = 10, digits = 2 } = {}) =>

@@ -24,6 +24,9 @@ app.get("/api", (req, res) => {
 	if (max < min) {
 		return res.status(400).json({ error: "Maximum length cannot be less than minimum length" });
 	}
+	if (digits < 1) {
+		return res.status(400).json({ error: "Number of digits must be positive" });
+	}
 	getWords()
 		.then((words) => words.filter((word) => word.length >= min && word.length <= max))
 		.then((words) => res.json({ password: password(words, digits) }))
