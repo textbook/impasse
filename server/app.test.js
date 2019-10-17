@@ -20,7 +20,7 @@ describe("app", () => {
 			password.mockReturnValue(fakePassword);
 
 			await request(app).get("/api").expect(200, { password: fakePassword });
-			expect(password).toHaveBeenCalledWith(words);
+			expect(password).toHaveBeenCalledWith(words, 2);
 		});
 
 		it("returns 500 on error", async () => {

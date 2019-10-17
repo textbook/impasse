@@ -6,6 +6,7 @@ import Config from "./Config";
 export class App extends Component {
 	state = {
 		config: {
+			digits: 2,
 			min: 8,
 			max: 10,
 		},

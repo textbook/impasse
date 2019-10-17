@@ -25,8 +25,9 @@ it("allows the password to be refreshed", () => {
 it("allows the password to be configured", () => {
 	cy.getDataQa("minLength").clear().type(7);
 	cy.getDataQa("maxLength").clear().type(7);
+	cy.getDataQa("digits").clear().type(3);
 
-	cy.getDataQa("password").invoke("text").should("match", regex({ minLength: 7, maxLength: 7 }));
+	cy.getDataQa("password").invoke("text").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
 });
 
 it("validates the input", () => {

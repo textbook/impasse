@@ -70,11 +70,12 @@ describe("App", () => {
 	it("makes a request in response to refresh request", () => {
 		getPassword.mockClear();
 		fireEvent.click(wrapper.getByTestId("refresh"));
-		expect(getPassword).toHaveBeenCalledWith({ min: 8, max: 10 });
+		expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 8, max: 10 });
 	});
 
 	describe("configuration", () => {
 		it("renders Config", () => {
+			expect(wrapper.getByTestId("digits")).toHaveValue(2);
 			expect(wrapper.getByTestId("minLength")).toHaveValue(8);
 			expect(wrapper.getByTestId("maxLength")).toHaveValue(10);
 		});
@@ -86,7 +87,7 @@ describe("App", () => {
 
 		it("makes a request in response to config changes", () => {
 			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
-			expect(getPassword).toHaveBeenCalledWith({ min: 7, max: 10 });
+			expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 7, max: 10 });
 		});
 	});
 });

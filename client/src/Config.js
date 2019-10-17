@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 export class Config extends Component {
 	static propTypes = {
 		config: PropTypes.shape({
+			digits: PropTypes.number,
 			min: PropTypes.number,
 			max: PropTypes.number,
 		}).isRequired,
@@ -40,6 +41,18 @@ export class Config extends Component {
 							onChange={this.handleChange("max")}
 							type="number"
 							value={config.max}
+						/>
+					</label>
+				</div>
+				<div>
+					<label htmlFor="digits">
+						Number of digits
+						<input
+							data-qa="digits"
+							id="digits"
+							onChange={this.handleChange("digits")}
+							type="number"
+							value={config.digits}
 						/>
 					</label>
 				</div>
