@@ -1,5 +1,7 @@
-import React, { Component } from "react";
 import PropTypes from "prop-types";
+import React, { Component } from "react";
+
+import { NumberControl } from "./NumberControl";
 
 export class Config extends Component {
 	static propTypes = {
@@ -19,44 +21,26 @@ export class Config extends Component {
 	render() {
 		const { config } = this.props;
 		return (
-			<div>
-				<div>
-					<label htmlFor="minLength">
-						Minimum word length
-						<input
-							data-qa="minLength"
-							id="minLength"
-							onChange={this.handleChange("min")}
-							type="number"
-							value={config.min}
-						/>
-					</label>
-				</div>
-				<div>
-					<label htmlFor="maxLength">
-						Maximum word length
-						<input
-							data-qa="maxLength"
-							id="maxLength"
-							onChange={this.handleChange("max")}
-							type="number"
-							value={config.max}
-						/>
-					</label>
-				</div>
-				<div>
-					<label htmlFor="digits">
-						Number of digits
-						<input
-							data-qa="digits"
-							id="digits"
-							onChange={this.handleChange("digits")}
-							type="number"
-							value={config.digits}
-						/>
-					</label>
-				</div>
-			</div>
+			<>
+				<NumberControl
+					id="minLength"
+					label="Minimum word length"
+					onChange={this.handleChange("min")}
+					value={config.min}
+				/>
+				<NumberControl
+					id="maxLength"
+					label="Maximum word length"
+					onChange={this.handleChange("max")}
+					value={config.max}
+				/>
+				<NumberControl
+					id="digits"
+					label="Number of digits"
+					onChange={this.handleChange("digits")}
+					value={config.digits}
+				/>
+			</>
 		);
 	}
 }
