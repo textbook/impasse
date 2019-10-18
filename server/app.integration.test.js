@@ -22,12 +22,20 @@ describe("password API", () => {
 	it("rejects inappropriate word length configuration", async () => {
 		await request(app)
 			.get("/api").query({ min: 10, max: 5 })
-			.expect(400, { error: "Maximum length cannot be less than minimum length" });
+			.expect(400, {
+				errors: [
+					{ description: "Maximum length cannot be less than minimum length", fields: ["max", "min"] },
+				],
+			});
 	});
 
 	it("rejects inappropriate digit configuration", async () => {
 		await request(app)
 			.get("/api").query({ digits: -2 })
-			.expect(400, { error: "Number of digits must be positive" });
+			.expect(400, {
+				errors: [
+					{ description: "Number of digits must be positive", fields: ["digits"] },
+				],
+			});
 	});
 });

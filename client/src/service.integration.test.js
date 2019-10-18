@@ -36,13 +36,13 @@ describe("service integration", () => {
 	});
 
 	it("exposes error messages on failure", async () => {
-		const error = "pranged it";
+		const errors = [{ description: "pranged it", fields: [] }];
 		const scope = nock(baseUrl)
 			.get("/api")
-			.reply(400, { error });
+			.reply(400, { errors });
 
 		await getPassword().catch((result) => {
-			expect(result).toBe(error);
+			expect(result).toEqual(errors);
 			scope.done();
 		});
 	});

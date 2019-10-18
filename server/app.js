@@ -3,6 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 
+import { validateConfig } from "./config";
 import { httpsOnly } from "./helpers";
 import password from "./password";
 import getWords from "./words";
@@ -21,11 +22,9 @@ app.get("/api", (req, res) => {
 	const min = parseInt(req.query.min || "8", 10);
 	const max = parseInt(req.query.max || "10", 10);
 	const digits = parseInt(req.query.digits || "2", 10);
-	if (max < min) {
-		return res.status(400).json({ error: "Maximum length cannot be less than minimum length" });
-	}
-	if (digits < 1) {
-		return res.status(400).json({ error: "Number of digits must be positive" });
+	const errors = validateConfig({ digits, max, min });
+	if (errors) {
+		return res.status(400).json({ errors });
 	}
 	getWords()
 		.then((words) => words.filter((word) => word.length >= min && word.length <= max))

@@ -9,7 +9,7 @@ export const App = () => {
 		min: 8,
 		max: 10,
 	});
-	const [error, setError] = useState(null);
+	const [errors, setErrors] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [password, setPassword] = useState(null);
 
@@ -19,14 +19,14 @@ export const App = () => {
 		getPassword(config)
 			.then((password) => {
 				if (mounted) {
-					setError(null);
+					setErrors(null);
 					setLoading(false);
 					setPassword(password);
 				}
 			})
-			.catch((error) => {
+			.catch((errors) => {
 				if (mounted) {
-					setError(error);
+					setErrors(errors);
 					setLoading(false);
 					setPassword("No password available");
 				}
@@ -36,14 +36,20 @@ export const App = () => {
 
 	useEffect(updatePassword, [config]);
 
+	const renderErrors = () => (
+		<ul data-qa="error">
+			{errors.map((err, index) => <li key={index}>{err.description}</li>)}
+		</ul>
+	);
+
 	return (
 		<main role="main">
 			<div>
 				<h1 data-qa="title">Impasse</h1>
 				<p data-qa="password">{loading ? "Loading..." : password}</p>
-				{error && <p data-qa="error">{error}</p>}
 				<button data-qa="refresh" onClick={updatePassword}>Refresh</button>
 				<Config config={config} onChange={setConfig} />
+				{errors && renderErrors()}
 			</div>
 		</main>
 	);
