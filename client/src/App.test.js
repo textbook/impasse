@@ -64,10 +64,10 @@ describe("App", () => {
 
 	describe("when request rejects", () => {
 		beforeEach(async () => {
-			deferred.reject([
-				{ description: message, fields: ["min"] },
-				{ description: "also broken", fields: ["max"] },
-			]);
+			deferred.reject({
+				descriptions: [message, "also broken"],
+				fields: ["min", "max"],
+			});
 			await tick();
 		});
 

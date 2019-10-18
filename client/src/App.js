@@ -37,9 +37,9 @@ export const App = () => {
 
 	useEffect(updatePassword, [config]);
 
-	const renderErrors = () => (
+	const renderErrors = (descriptions) => (
 		<ul className="error-list" data-qa="error">
-			{errors.map((err, index) => <li key={index}>{err.description}</li>)}
+			{descriptions.map((description, index) => <li key={index}>{description}</li>)}
 		</ul>
 	);
 
@@ -49,8 +49,8 @@ export const App = () => {
 				<h1 data-qa="title">Impasse</h1>
 				<p data-qa="password">{loading ? "Loading..." : password}</p>
 				<button data-qa="refresh" onClick={updatePassword}>Refresh</button>
-				<Config config={config} errors={errors} onChange={setConfig} />
-				{errors && renderErrors()}
+				<Config config={config} errorFields={errors && errors.fields} onChange={setConfig} />
+				{errors && renderErrors(errors.descriptions)}
 			</div>
 		</main>
 	);

@@ -36,13 +36,19 @@ describe("service integration", () => {
 	});
 
 	it("exposes error messages on failure", async () => {
-		const errors = [{ description: "pranged it", fields: [] }];
+		const errors = [
+			{ description: "pranged it", fields: ["foo"] },
+			{ description: "also an issue", fields: ["bar"] },
+		];
 		const scope = nock(baseUrl)
 			.get("/api")
 			.reply(400, { errors });
 
-		await getPassword().catch((result) => {
-			expect(result).toEqual(errors);
+		await getPassword().catch(({ descriptions, fields }) => {
+			expect(fields).toContain("foo");
+			expect(fields).toContain("bar");
+			expect(descriptions).toContain("pranged it");
+			expect(descriptions).toContain("also an issue");
 			scope.done();
 		});
 	});
