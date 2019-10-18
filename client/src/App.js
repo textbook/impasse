@@ -1,51 +1,46 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 
 import { getPassword } from "./service";
 import Config from "./Config";
 
-export class App extends Component {
-	state = {
-		config: {
-			digits: 2,
-			min: 8,
-			max: 10,
-		},
-		error: null,
-		loading: true,
-		password: null,
+export const App = () => {
+	const [config, setConfig] = useState({
+		digits: 2,
+		min: 8,
+		max: 10,
+	});
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [password, setPassword] = useState(null);
+
+	const updatePassword = () => {
+		setLoading(true);
+		getPassword(config)
+			.then((password) => {
+				setError(null);
+				setLoading(false);
+				setPassword(password);
+			})
+			.catch((error) => {
+				setError(error);
+				setLoading(false);
+				setPassword("No password available");
+			});
 	};
 
-	componentDidMount () {
-		this.updatePassword();
-	}
+	useEffect(updatePassword, [config]);
 
-	updateConfig = (config) => {
-		this.setState({ config }, () => this.updatePassword());
-	};
-
-	updatePassword = () => {
-		const { config } = this.state;
-		this.setState({ loading: true }, () => {
-			getPassword(config)
-				.then((password) => this.setState({ error: null, loading: false, password }))
-				.catch((error) => this.setState({ error, loading: false, password: "No password available" }));
-		});
-	};
-
-	render() {
-		const { config, error, loading, password } = this.state;
-		return (
-			<main role="main">
-				<div>
-					<h1 data-qa="title">Impasse</h1>
-					<p data-qa="password">{loading ? "Loading..." : password}</p>
-					{error && <p data-qa="error">{error}</p>}
-					<button data-qa="refresh" onClick={this.updatePassword}>Refresh</button>
-					<Config config={config} onChange={this.updateConfig} />
-				</div>
-			</main>
-		);
-	}
-}
+	return (
+		<main role="main">
+			<div>
+				<h1 data-qa="title">Impasse</h1>
+				<p data-qa="password">{loading ? "Loading..." : password}</p>
+				{error && <p data-qa="error">{error}</p>}
+				<button data-qa="refresh" onClick={updatePassword}>Refresh</button>
+				<Config config={config} onChange={setConfig} />
+			</div>
+		</main>
+	);
+};
 
 export default App;
