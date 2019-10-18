@@ -3,7 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 
-import { validateConfig } from "./config";
+import parseConfig from "./config";
 import { httpsOnly } from "./helpers";
 import password from "./password";
 import getWords from "./words";
@@ -19,10 +19,7 @@ if (app.get("env") === "production") {
 }
 
 app.get("/api", (req, res) => {
-	const min = parseInt(req.query.min || "8", 10);
-	const max = parseInt(req.query.max || "10", 10);
-	const digits = parseInt(req.query.digits || "2", 10);
-	const errors = validateConfig({ digits, max, min });
+	const [{ min, max, digits }, errors] = parseConfig(req.query);
 	if (errors) {
 		return res.status(400).json({ errors });
 	}

@@ -1,4 +1,4 @@
-export const validateConfig = (config) => {
+const validateConfig = (config) => {
 	const { max, min } = config;
 	const errors = [];
 	const validatePositive = (field, name) => {
@@ -24,4 +24,12 @@ export const validateConfig = (config) => {
 	validateNumerical("min", "Minimum length");
 	validateNumerical("max", "Maximum length");
 	return errors.length > 0 ? errors : null;
+};
+
+export default (query) => {
+	const min = parseInt(query.min || "8", 10);
+	const max = parseInt(query.max || "10", 10);
+	const digits = parseInt(query.digits || "2", 10);
+	const errors = validateConfig({ digits, max, min });
+	return [{ min, max, digits }, errors];
 };
