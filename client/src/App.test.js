@@ -32,6 +32,18 @@ describe("App", () => {
 		expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
 	});
 
+	it("makes a request in response to refresh request", () => {
+		getPassword.mockClear();
+		fireEvent.click(wrapper.getByTestId("refresh"));
+		expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 8, max: 10 });
+	});
+
+	it("cleans up on unmount", async () => {
+		wrapper.unmount();
+		deferred.resolve(message);
+		await tick();
+	});
+
 	describe("when request resolves", () => {
 		beforeEach(async () => {
 			deferred.resolve(message);
@@ -68,12 +80,6 @@ describe("App", () => {
 			await waitForElementToBeRemoved(() => wrapper.getByTestId("error"));
 			expect(wrapper.getByTestId("password")).toHaveTextContent(newPassword);
 		});
-	});
-
-	it("makes a request in response to refresh request", () => {
-		getPassword.mockClear();
-		fireEvent.click(wrapper.getByTestId("refresh"));
-		expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 8, max: 10 });
 	});
 
 	describe("configuration", () => {

@@ -14,18 +14,24 @@ export const App = () => {
 	const [password, setPassword] = useState(null);
 
 	const updatePassword = () => {
+		let mounted = true;
 		setLoading(true);
 		getPassword(config)
 			.then((password) => {
-				setError(null);
-				setLoading(false);
-				setPassword(password);
+				if (mounted) {
+					setError(null);
+					setLoading(false);
+					setPassword(password);
+				}
 			})
 			.catch((error) => {
-				setError(error);
-				setLoading(false);
-				setPassword("No password available");
+				if (mounted) {
+					setError(error);
+					setLoading(false);
+					setPassword("No password available");
+				}
 			});
+		return () => mounted = false;
 	};
 
 	useEffect(updatePassword, [config]);
