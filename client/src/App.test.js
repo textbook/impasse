@@ -64,13 +64,27 @@ describe("App", () => {
 
 	describe("when request rejects", () => {
 		beforeEach(async () => {
-			deferred.reject([{ description: message, fields: [] }]);
+			deferred.reject([
+				{ description: message, fields: ["min"] },
+				{ description: "also broken", fields: ["max"] },
+			]);
 			await tick();
 		});
 
 		it("displays the error message", () => {
 			expect(wrapper.getByTestId("password")).toHaveTextContent("No password available");
 			expect(wrapper.getByTestId("error")).toHaveTextContent(message);
+		});
+
+		it("sets error states", () => {
+			expect(wrapper.getByLabelText("Minimum word length")).toHaveClass("input-error");
+			expect(wrapper.getByText("Minimum word length")).toHaveClass("label-error");
+
+			expect(wrapper.getByLabelText("Maximum word length")).toHaveClass("input-error");
+			expect(wrapper.getByText("Maximum word length")).toHaveClass("label-error");
+
+			expect(wrapper.getByLabelText("Number of digits")).not.toHaveClass("input-error");
+			expect(wrapper.getByText("Number of digits")).not.toHaveClass("label-error");
 		});
 
 		it("clears the error message when successful", async () => {

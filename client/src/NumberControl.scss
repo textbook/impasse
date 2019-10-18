@@ -1,0 +1,9 @@
+@import "./palette";
+
+.label-error {
+  color: $error;
+}
+
+.input-error {
+  border-color: $error;
+}

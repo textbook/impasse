@@ -1,6 +1,6 @@
 module.exports = {
 	moduleNameMapper: {
-		"\\.(png|svg|jpe?g|gif)$": "<rootDir>/__mocks__/fileMock.js",
+		"\\.(png|svg|jpe?g|gif|s[ac]ss)$": "<rootDir>/__mocks__/fileMock.js",
 	},
 	reporters: [
 		"default",

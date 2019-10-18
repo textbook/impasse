@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { getPassword } from "./service";
 import Config from "./Config";
+import "./App.scss";
 
 export const App = () => {
 	const [config, setConfig] = useState({
@@ -37,7 +38,7 @@ export const App = () => {
 	useEffect(updatePassword, [config]);
 
 	const renderErrors = () => (
-		<ul data-qa="error">
+		<ul className="error-list" data-qa="error">
 			{errors.map((err, index) => <li key={index}>{err.description}</li>)}
 		</ul>
 	);
@@ -48,7 +49,7 @@ export const App = () => {
 				<h1 data-qa="title">Impasse</h1>
 				<p data-qa="password">{loading ? "Loading..." : password}</p>
 				<button data-qa="refresh" onClick={updatePassword}>Refresh</button>
-				<Config config={config} onChange={setConfig} />
+				<Config config={config} errors={errors} onChange={setConfig} />
 				{errors && renderErrors()}
 			</div>
 		</main>

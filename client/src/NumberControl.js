@@ -1,19 +1,29 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import "./NumberControl.scss";
+
 export function NumberControl(props) {
-	const { label, id, onChange, value } = props;
+	const { error, id, label, onChange, value } = props;
 	return (
 		<div>
-			<label htmlFor={id}>
+			<label className={error ? "label-error" : ""} htmlFor={id}>
 				{label}
-				<input data-qa={id} id={id} onChange={onChange} type="number" value={value} />
+				<input
+					className={error ? "input-error" : ""}
+					data-qa={id}
+					id={id}
+					onChange={onChange}
+					type="number"
+					value={value}
+				/>
 			</label>
 		</div>
 	);
 }
 
 NumberControl.propTypes = {
+	error: PropTypes.bool,
 	id: PropTypes.string,
 	label: PropTypes.string,
 	onChange: PropTypes.func,
