@@ -12,22 +12,23 @@ describe("App", () => {
 
 	const message = "Foo bar!";
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		deferred = defer();
 		getPassword.mockReturnValue(deferred.promise);
 		wrapper = render(<App />);
+		await tick();
 	});
 
 	it("requests the password", () => {
 		expect(getPassword).toHaveBeenCalled();
 	});
 
-	it("displays a title", async () => {
+	it("displays a title", () => {
 		let element = wrapper.getByTestId("title");
 		expect(element).toHaveTextContent("Impasse");
 	});
 
-	it("shows a loading state", async () => {
+	it("shows a loading state", () => {
 		expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
 	});
 
@@ -37,12 +38,14 @@ describe("App", () => {
 			await tick();
 		});
 
-		it("displays password", async () => {
+		it("displays password", () => {
 			expect(wrapper.getByTestId("password")).toHaveTextContent(message);
 		});
 
-		it("returns to the loading state when the config changes", () => {
+		it("returns to the loading state when the config changes", async () => {
+			getPassword.mockReturnValue(defer().promise);
 			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
+			await tick();
 			expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
 		});
 	});
