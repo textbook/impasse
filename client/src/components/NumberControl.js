@@ -6,11 +6,11 @@ import "./NumberControl.scss";
 export function NumberControl(props) {
 	const { error, id, label, onChange, value } = props;
 	return (
-		<div>
-			<label className={error ? "label-error" : ""} htmlFor={id}>
+		<div className="control">
+			<label className={error ? "error" : ""} htmlFor={id}>
 				{label}
 				<input
-					className={error ? "input-error" : ""}
+					className={error ? "error" : ""}
 					data-qa={id}
 					id={id}
 					onChange={onChange}

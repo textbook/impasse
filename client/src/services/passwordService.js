@@ -1,4 +1,4 @@
-import { get } from "./client";
+import { get } from "./apiClient";
 
 const summariseFields = (errors) => {
 	const fields = [];

@@ -2,9 +2,9 @@ import React from "react";
 import { fireEvent, render, waitForElementToBeRemoved } from "@testing-library/react";
 
 import { App } from "./App";
-import { getPassword } from "./service";
+import { getPassword } from "./services/passwordService";
 
-jest.mock("./service");
+jest.mock("./services/passwordService");
 
 describe("App", () => {
 	let deferred;
@@ -77,14 +77,14 @@ describe("App", () => {
 		});
 
 		it("sets error states", () => {
-			expect(wrapper.getByLabelText("Minimum word length")).toHaveClass("input-error");
-			expect(wrapper.getByText("Minimum word length")).toHaveClass("label-error");
+			expect(wrapper.getByLabelText("Minimum word length")).toHaveClass("error");
+			expect(wrapper.getByText("Minimum word length")).toHaveClass("error");
 
-			expect(wrapper.getByLabelText("Maximum word length")).toHaveClass("input-error");
-			expect(wrapper.getByText("Maximum word length")).toHaveClass("label-error");
+			expect(wrapper.getByLabelText("Maximum word length")).toHaveClass("error");
+			expect(wrapper.getByText("Maximum word length")).toHaveClass("error");
 
-			expect(wrapper.getByLabelText("Number of digits")).not.toHaveClass("input-error");
-			expect(wrapper.getByText("Number of digits")).not.toHaveClass("label-error");
+			expect(wrapper.getByLabelText("Number of digits")).not.toHaveClass("error");
+			expect(wrapper.getByText("Number of digits")).not.toHaveClass("error");
 		});
 
 		it("clears the error message when successful", async () => {

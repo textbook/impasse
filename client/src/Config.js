@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { NumberControl } from "./NumberControl";
+import { NumberControl } from "./components/NumberControl";
 
 export function Config({ config, errorFields, onChange }) {
 	const handleChange = (prop) => (event) => {

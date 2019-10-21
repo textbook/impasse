@@ -2,7 +2,7 @@ import axios from "axios";
 import httpAdapter from "axios/lib/adapters/http";
 import nock from "nock";
 
-import { getPassword } from "./service";
+import { getPassword } from "./passwordService";
 
 const baseUrl = "http://example.org";
 

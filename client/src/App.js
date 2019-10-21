@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getPassword } from "./service";
+import { getPassword } from "./services/passwordService";
 import Config from "./Config";
 import "./App.scss";
 
@@ -47,7 +47,9 @@ export const App = () => {
 		<main role="main">
 			<div>
 				<h1 data-qa="title">Impasse</h1>
-				<p data-qa="password">{loading ? "Loading..." : password}</p>
+				<div className="password">
+					<span data-qa="password">{loading ? "Loading..." : password}</span>
+				</div>
 				<button data-qa="refresh" onClick={updatePassword}>Refresh</button>
 				<Config config={config} errorFields={errors && errors.fields} onChange={setConfig} />
 				{errors && renderErrors(errors.descriptions)}
