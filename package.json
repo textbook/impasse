@@ -67,7 +67,7 @@
     "jest": "^24.9.0",
     "jest-dom": "^4.0.0",
     "jest-junit": "^9.0.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.2.2",
     "mocha-junit-reporter": "^1.22.0",
     "mocha-multi-reporters": "^1.1.7",
     "nock": "^11.4.0",
