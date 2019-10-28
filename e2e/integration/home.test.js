@@ -39,7 +39,7 @@ it("validates the word length input", () => {
 });
 
 it("validates the digits input", () => {
-	cy.getDataQa("digits").clear().type(-2);
+	cy.getDataQa("digits").clear().type(0);
 
 	cy.getDataQa("password").should("contain.text", "No password available");
 	cy.getDataQa("error").should("contain.text", "Number of digits must be positive");
