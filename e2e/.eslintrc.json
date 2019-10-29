@@ -2,13 +2,17 @@
   "env": {
     "cypress/globals": true
   },
-  "extends": [
-    "../.eslintrc.json"
+  "extends": ["../.eslintrc.json"],
+  "overrides": [
+    {
+      "files": ["integration/*.test.js"],
+      "rules": {
+        "jest/valid-expect-in-promise": "off"
+      }
+    }
   ],
   "parserOptions": {
     "ecmaVersion": 6
   },
-  "plugins": [
-    "cypress"
-  ]
+  "plugins": ["cypress"]
 }
