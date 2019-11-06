@@ -73,7 +73,7 @@
     "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",
     "prop-types": "^15.7.2",
-    "react": "16.10.2",
+    "react": "16.11.0",
     "react-dom": "16.11.0",
     "rimraf": "^3.0.0",
     "sass-loader": "^8.0.0",
