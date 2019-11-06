@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import { configure } from "@testing-library/react";
-import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 
 configure({ testIdAttribute: "data-qa" });
