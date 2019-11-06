@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, waitForElementToBeRemoved } from "@testing-library/react";
+import { act, fireEvent, render, waitForElementToBeRemoved } from "@testing-library/react";
 
 import { App } from "./App";
 import { getPassword } from "./services/passwordService";
@@ -46,7 +46,9 @@ describe("App", () => {
 
 	describe("when request resolves", () => {
 		beforeEach(async () => {
-			deferred.resolve(message);
+			await act(async () => {
+				deferred.resolve(message);
+			});
 			await tick();
 		});
 
@@ -64,9 +66,11 @@ describe("App", () => {
 
 	describe("when request rejects", () => {
 		beforeEach(async () => {
-			deferred.reject({
-				descriptions: [message, "also broken"],
-				fields: ["min", "max"],
+			await act(async () => {
+				deferred.reject({
+					descriptions: [message, "also broken"],
+					fields: ["min", "max"],
+				});
 			});
 			await tick();
 		});
