@@ -1,5 +1,5 @@
 import React from "react";
-import { act, fireEvent, render, waitForElementToBeRemoved } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 
 import { App } from "./App";
 import { getPassword } from "./services/passwordService";
@@ -29,7 +29,7 @@ describe("App", () => {
 	});
 
 	it("shows a loading state", () => {
-		expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
+		expect(wrapper.getByTestId("password-wrapper")).toHaveClass("is-loading");
 	});
 
 	it("makes a request in response to refresh request", () => {
@@ -53,14 +53,14 @@ describe("App", () => {
 		});
 
 		it("displays password", () => {
-			expect(wrapper.getByTestId("password")).toHaveTextContent(message);
+			expect(wrapper.getByTestId("password")).toHaveValue(message);
 		});
 
 		it("returns to the loading state when the config changes", async () => {
 			getPassword.mockReturnValue(defer().promise);
 			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
 			await tick();
-			expect(wrapper.getByTestId("password")).toHaveTextContent("Loading...");
+			expect(wrapper.getByTestId("password-wrapper")).toHaveClass("is-loading");
 		});
 	});
 
@@ -76,27 +76,23 @@ describe("App", () => {
 		});
 
 		it("displays the error message", () => {
-			expect(wrapper.getByTestId("password")).toHaveTextContent("No password available");
+			expect(wrapper.getByTestId("password")).toHaveAttribute("placeholder", "No password available");
 			expect(wrapper.getByTestId("error")).toHaveTextContent(message);
 		});
 
 		it("sets error states", () => {
-			expect(wrapper.getByLabelText("Minimum word length")).toHaveClass("error");
-			expect(wrapper.getByText("Minimum word length")).toHaveClass("error");
-
-			expect(wrapper.getByLabelText("Maximum word length")).toHaveClass("error");
-			expect(wrapper.getByText("Maximum word length")).toHaveClass("error");
-
-			expect(wrapper.getByLabelText("Number of digits")).not.toHaveClass("error");
-			expect(wrapper.getByText("Number of digits")).not.toHaveClass("error");
+			expect(wrapper.getByLabelText("Minimum word length")).toHaveClass("is-danger");
+			expect(wrapper.getByLabelText("Maximum word length")).toHaveClass("is-danger");
+			expect(wrapper.getByLabelText("Number of digits")).not.toHaveClass("is-danger");
 		});
 
 		it("clears the error message when successful", async () => {
 			const newPassword = "yay!";
 			getPassword.mockResolvedValue(newPassword);
-			fireEvent.click(wrapper.getByTestId("refresh"));
-			await waitForElementToBeRemoved(() => wrapper.getByTestId("error"));
-			expect(wrapper.getByTestId("password")).toHaveTextContent(newPassword);
+			await act(async () => {
+				await fireEvent.click(wrapper.getByTestId("refresh"));
+			});
+			expect(wrapper.getByTestId("password")).toHaveValue(newPassword);
 		});
 	});
 

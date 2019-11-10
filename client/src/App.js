@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 
 import { getPassword } from "./services/passwordService";
 import Config from "./Config";
+import Password from "./Password";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import "./App.scss";
+
+const renderErrors = (descriptions) => (
+	<ul className="error-list" data-qa="error">
+		{descriptions.map((description, index) => <li key={index}>{description}</li>)}
+	</ul>
+);
 
 export const App = () => {
 	const [config, setConfig] = useState({
@@ -12,15 +21,16 @@ export const App = () => {
 	});
 	const [errors, setErrors] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [password, setPassword] = useState(null);
+	const [password, setPassword] = useState("");
 
 	const updatePassword = () => {
 		let mounted = true;
 		setLoading(true);
+		setPassword("");
+		setErrors(null);
 		getPassword(config)
 			.then((password) => {
 				if (mounted) {
-					setErrors(null);
 					setLoading(false);
 					setPassword(password);
 				}
@@ -29,7 +39,6 @@ export const App = () => {
 				if (mounted) {
 					setErrors(errors);
 					setLoading(false);
-					setPassword("No password available");
 				}
 			});
 		return () => mounted = false;
@@ -37,23 +46,32 @@ export const App = () => {
 
 	useEffect(updatePassword, [config]);
 
-	const renderErrors = (descriptions) => (
-		<ul className="error-list" data-qa="error">
-			{descriptions.map((description, index) => <li key={index}>{description}</li>)}
-		</ul>
-	);
-
 	return (
 		<main role="main">
-			<div>
-				<h1 data-qa="title">Impasse</h1>
-				<div className="password">
-					<span data-qa="password">{loading ? "Loading..." : password}</span>
+			<Header />
+
+			<section className="section">
+				<div className="container">
+					<Password
+						loading={loading}
+						password={password}
+						onUpdate={updatePassword}
+					/>
 				</div>
-				<button data-qa="refresh" onClick={updatePassword}>Refresh</button>
-				<Config config={config} errorFields={errors && errors.fields} onChange={setConfig} />
-				{errors && renderErrors(errors.descriptions)}
-			</div>
+			</section>
+
+			<section className="section">
+				<div className="container">
+					<Config
+						config={config}
+						errorFields={errors && errors.fields}
+						onChange={setConfig}
+					/>
+					{errors && renderErrors(errors.descriptions)}
+				</div>
+			</section>
+
+			<Footer />
 		</main>
 	);
 };

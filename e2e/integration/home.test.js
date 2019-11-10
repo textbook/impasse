@@ -12,13 +12,13 @@ it("meets basic accessibility guidelines", () => {
 });
 
 it("displays a password", () => {
-	cy.getDataQa("password").invoke("text").should("match", regex());
+	cy.getDataQa("password").invoke("val").should("match", regex());
 });
 
 it("allows the password to be refreshed", () => {
-	cy.getDataQa("password").invoke("text").should("match", regex()).then((oldText) => {
+	cy.getDataQa("password").invoke("val").should("match", regex()).then((oldText) => {
 		cy.getDataQa("refresh").click();
-		cy.getDataQa("password").should("not.contain.text", oldText);
+		cy.getDataQa("password").should("not.have.value", oldText);
 	});
 });
 
@@ -27,21 +27,21 @@ it("allows the password to be configured", () => {
 	cy.getDataQa("maxLength").clear().type(7);
 	cy.getDataQa("digits").clear().type(3);
 
-	cy.getDataQa("password").invoke("text").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
+	cy.getDataQa("password").invoke("val").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
 });
 
 it("validates the word length input", () => {
 	cy.getDataQa("minLength").clear().type(10);
 	cy.getDataQa("maxLength").clear().type(8);
 
-	cy.getDataQa("password").should("contain.text", "No password available");
+	cy.getDataQa("password").should("have.attr", "placeholder", "No password available");
 	cy.getDataQa("error").should("contain.text", "Maximum length cannot be less than minimum length");
 });
 
 it("validates the digits input", () => {
 	cy.getDataQa("digits").clear().type(0);
 
-	cy.getDataQa("password").should("contain.text", "No password available");
+	cy.getDataQa("password").should("have.attr", "placeholder", "No password available");
 	cy.getDataQa("error").should("contain.text", "Number of digits must be positive");
 });
 

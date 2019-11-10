@@ -13,6 +13,8 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "jest/expect-expect": "off"
+    "jest/expect-expect": "off",
+    "jest/no-focused-tests": "error",
+    "jest/no-disabled-tests": "error"
   }
 }

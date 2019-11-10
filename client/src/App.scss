@@ -1,36 +1,18 @@
-@import "styles/layout";
-@import "styles/palette";
-@import "styles/typography";
+@import "./bulma";
 
-body {
-  font-family: $font-family;
-  font-size: $body-font-size;
-  margin: $spacing;
-}
+.footer {
+	a {
+		// darker blue for AAA WCAG compliance
+		color: #1D53AA;
 
-main {
-  padding: $spacing;
+		&.bulma-logo {
+			vertical-align: top;
+			margin-left: 0.5rem;
 
-  h1 {
-    font-size: $header-font-size;
-    margin-bottom: #{$spacing * 1.5};
-    margin-top: 0;
-  }
-
-  .password {
-    border: $border-width solid $border;
-    margin: #{$spacing / 2};
-    padding: #{($spacing / 2) - $border-width};
-  }
-
-  button {
-    font-size: $control-font-size;
-    margin-left: #{$spacing / 2};
-    padding: #{$spacing / 4};
-    width: $button-width;
-  }
-
-  ul.error-list {
-    color: $error;
-  }
+			img {
+				height: 24px;
+				width: 128px;
+			}
+		}
+	}
 }

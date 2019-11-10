@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { NumberControl } from "./components/NumberControl";
+import Input from "./components/Input";
 
 export function Config({ config, errorFields, onChange }) {
 	const handleChange = (prop) => (event) => {
@@ -9,21 +9,21 @@ export function Config({ config, errorFields, onChange }) {
 	};
 	return (
 		<>
-			<NumberControl
+			<Input
 				error={errorFields && errorFields.includes("min")}
 				id="minLength"
 				label="Minimum word length"
 				onChange={handleChange("min")}
 				value={config.min}
 			/>
-			<NumberControl
+			<Input
 				error={errorFields && errorFields.includes("max")}
 				id="maxLength"
 				label="Maximum word length"
 				onChange={handleChange("max")}
 				value={config.max}
 			/>
-			<NumberControl
+			<Input
 				error={errorFields && errorFields.includes("digits")}
 				id="digits"
 				label="Number of digits"

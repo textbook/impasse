@@ -7,10 +7,10 @@
     "plugin:jsx-a11y/strict",
     "plugin:react/recommended"
   ],
-  "plugins": [
-    "react-hooks"
-  ],
+  "plugins": ["react-hooks"],
   "rules": {
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
     "react/jsx-tag-spacing": "error",
     "react/no-unused-prop-types": "error",
     "react-hooks/rules-of-hooks": "error",
