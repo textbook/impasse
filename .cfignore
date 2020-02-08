@@ -1,7 +1,0 @@
-.circleci/
-__mocks__/
-client/
-e2e/
-node_modules/
-reports/
-server/
