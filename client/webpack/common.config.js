@@ -7,7 +7,10 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				loader: "babel-loader?cacheDirectory",
+				loader: "babel-loader",
+				options: {
+					cacheDirectory: true,
+				},
 			},
 			{
 				test: /\.(png|svg|jpe?g|gif)$/,
