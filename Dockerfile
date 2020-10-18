@@ -1,4 +1,4 @@
-ARG NODE_RELEASE=dubnium
+ARG NODE_RELEASE=erbium
 
 FROM node:${NODE_RELEASE}-alpine AS build
 
