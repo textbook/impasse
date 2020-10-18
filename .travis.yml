@@ -4,6 +4,8 @@ addons:
   apt:
     packages:
     - libgconf-2-4
+services:
+- docker
 cache:
   npm: true
   directories:
@@ -14,6 +16,7 @@ script:
 - npm run lint
 - npm run test
 - npm run e2e
+- npm run e2e:docker
 deploy:
   provider: heroku
   app: impasse

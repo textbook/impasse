@@ -6,19 +6,15 @@ ARG NODE_RELEASE
 
 ENV CYPRESS_INSTALL_BINARY=0
 
-RUN echo "Node $(node -v) / NPM v$(npm -v)"
+WORKDIR /home/node
 
-COPY ./package.json .
-COPY ./package-lock.json .
+COPY ./package*.json ./
 
-RUN if [ ${NODE_RELEASE} = "boron" ]; \
-  then npm install; \
-  else npm ci; \
-  fi
+RUN npm ci
 
 COPY ./.babelrc .
-COPY ./client /client
-COPY ./server /server
+COPY ./client ./client
+COPY ./server ./server
 
 RUN npm run build
 
@@ -28,15 +24,13 @@ ARG NODE_RELEASE
 
 LABEL maintainer="Jonathan Sharpe"
 
-COPY --from=build ./package.json .
-COPY --from=build ./package-lock.json .
+WORKDIR /home/node
 
-RUN if [ ${NODE_RELEASE} = "boron" ]; \
-  then npm install --only=prod; \
-  else npm ci --only=prod; \
-  fi
+COPY --from=build /home/node/package*.json ./
 
-COPY --from=build ./dist /dist
+RUN npm ci --only=prod
+
+COPY --from=build /home/node/dist ./dist
 
 ENV NODE_ENV=production
 ENV PORT=80
