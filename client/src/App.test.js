@@ -40,7 +40,9 @@ describe("App", () => {
 
 	it("cleans up on unmount", async () => {
 		wrapper.unmount();
-		deferred.resolve(message);
+		await act(async () => {
+			deferred.resolve(message);
+		});
 		await tick();
 	});
 
