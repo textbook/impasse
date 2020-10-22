@@ -90,7 +90,7 @@
   "dependencies": {
     "@babel/runtime": "^7.7.2",
     "express": "^4.17.1",
-    "helmet": "^3.21.2",
+    "helmet": "^4.1.1",
     "morgan": "^1.9.1",
     "word-list": "^3.1.0"
   },
