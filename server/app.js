@@ -1,16 +1,15 @@
 import express from "express";
-import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 
 import parseConfig from "./config";
-import { httpsOnly } from "./helpers";
+import { configuredHelmet, httpsOnly } from "./middleware";
 import password from "./password";
 import getWords from "./words";
 
 const app = express();
 
-app.use(helmet());
+app.use(configuredHelmet());
 app.use(morgan("dev"));
 
 if (app.get("env") === "production") {
