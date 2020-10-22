@@ -65,7 +65,7 @@ describe("parseConfig", () => {
 			],
 		},
 	].forEach(({ description, input, expected }) => {
-		it(description, () => {
+		it(`${description}`, () => {
 			let [, errors] = parseConfig(input);
 			expected.forEach((error) => {
 				expect(errors).toContainEqual(error);
