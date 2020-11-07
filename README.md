@@ -1,7 +1,7 @@
 Impasse
 =======
 
-[![Build Status](https://travis-ci.org/textbook/impasse.svg?branch=master)](https://travis-ci.org/textbook/impasse)
+[![Node.js CI](https://github.com/textbook/impasse/workflows/Node.js%20CI/badge.svg)](https://github.com/textbook/impasse/actions)
 
 Generate moderately secure passwords
 
