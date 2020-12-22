@@ -1,12 +1,22 @@
-Impasse
-=======
+# Impasse
 
 [![Node.js CI](https://github.com/textbook/impasse/workflows/Node.js%20CI/badge.svg)](https://github.com/textbook/impasse/actions)
 
 Generate moderately secure passwords
 
-Scripts
--------
+## What do you mean "moderately"?
+
+Impasse generates passwords in the format: `${word1}${number}${word2}${symbol}`. The valid symbols are `!@#$%^&*` and
+the default settings are:
+
+- `number` has two digits; and
+- `word1` and `word2` are both 8-10 letters long (and must be different).
+
+This gives a password length of between 19 and 23 characters, and a pool of 44 characters (26 letters, 10 digits, 8
+symbols). Naively that implies an entropy between 103.73 and 125.57. However there are 117,583 words in the dataset
+with 8-10 letters, giving an entropy of only 43.33, equivalent to a password length of 8 with the same character pool.
+
+## Scripts
 
 Various scripts are provided in the package file, but many are helpers for other scripts; here are the ones you'll
 commonly use:
