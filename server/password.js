@@ -4,5 +4,7 @@ const SYMBOLS = "!@#$%^&*";
 
 export default (words, digits = 2) => {
 	const [word1, word2] = sample(words, 2);
-	return `${word1}${randRange(10 ** (digits - 1), 10 ** digits)}${word2}${choice(SYMBOLS)}`;
+	const number = `${randRange(0, 10 ** digits)}`.padStart(2, "0");
+	const symbol = choice(SYMBOLS);
+	return `${word1}${number}${word2}${symbol}`;
 };
