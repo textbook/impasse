@@ -3,7 +3,8 @@ beforeEach(() => {
 });
 
 it("displays the site", () => {
-	cy.findByTestId("title").should("contain.text", "Impasse");
+	cy.findByRole("heading", { level: 1 }).should("contain.text", "Impasse");
+	cy.findByRole("heading", { level: 2 }).should("contain.text", "Generate moderately secure passwords");
 });
 
 it("meets basic accessibility guidelines", () => {
@@ -12,37 +13,37 @@ it("meets basic accessibility guidelines", () => {
 });
 
 it("displays a password", () => {
-	cy.findByTestId("password").invoke("val").should("match", regex());
+	cy.findByRole("textbox", { name: "Password" }).invoke("val").should("match", regex());
 });
 
 it("allows the password to be refreshed", () => {
-	cy.findByTestId("password").invoke("val").should("match", regex()).then((oldText) => {
-		cy.findByTestId("refresh").click();
-		cy.findByTestId("password").should("not.have.value", oldText);
+	cy.findByRole("textbox", { name: "Password" }).invoke("val").should("match", regex()).then((oldText) => {
+		cy.findByRole("button", { name: "Refresh" }).click();
+		cy.findByRole("textbox", { name: "Password" }).should("not.have.value", oldText);
 	});
 });
 
 it("allows the password to be configured", () => {
-	cy.findByTestId("minLength").clear().type(7);
-	cy.findByTestId("maxLength").clear().type(7);
-	cy.findByTestId("digits").clear().type(3);
+	cy.findByRole("spinbutton", { name: "Minimum word length" }).clear().type(7);
+	cy.findByRole("spinbutton", { name: "Maximum word length" }).clear().type(7);
+	cy.findByRole("spinbutton", { name: "Number of digits" }).clear().type(3);
 
-	cy.findByTestId("password").invoke("val").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
+	cy.findByRole("textbox", { name: "Password" }).invoke("val").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
 });
 
 it("validates the word length input", () => {
-	cy.findByTestId("minLength").clear().type(10);
-	cy.findByTestId("maxLength").clear().type(8);
+	cy.findByRole("spinbutton", { name: "Minimum word length" }).clear().type(10);
+	cy.findByRole("spinbutton", { name: "Maximum word length" }).clear().type(8);
 
-	cy.findByTestId("password").should("have.attr", "placeholder", "No password available");
-	cy.findByTestId("error").should("contain.text", "Maximum length cannot be less than minimum length");
+	cy.findByRole("textbox", { name: "Password" }).should("have.attr", "placeholder", "No password available");
+	cy.findByText("Maximum length cannot be less than minimum length").should("exist");
 });
 
 it("validates the digits input", () => {
-	cy.findByTestId("digits").clear().type(0);
+	cy.findByRole("spinbutton", { name: "Number of digits" }).clear().type(0);
 
-	cy.findByTestId("password").should("have.attr", "placeholder", "No password available");
-	cy.findByTestId("error").should("contain.text", "Number of digits must be positive");
+	cy.findByRole("textbox", { name: "Password" }).should("have.attr", "placeholder", "No password available");
+	cy.findByText("Number of digits must be positive").should("exist");
 });
 
 const regex = ({ minLength = 8, maxLength = 10, digits = 2 } = {}) =>
