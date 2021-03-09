@@ -36,6 +36,8 @@ ENV NODE_ENV=production
 ENV PORT=80
 EXPOSE 80
 
+USER node
+
 ENTRYPOINT [ "npm" ]
 
 CMD [ "start" ]
