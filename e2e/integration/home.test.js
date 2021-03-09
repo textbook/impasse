@@ -3,7 +3,7 @@ beforeEach(() => {
 });
 
 it("displays the site", () => {
-	cy.getDataQa("title").should("contain.text", "Impasse");
+	cy.findByTestId("title").should("contain.text", "Impasse");
 });
 
 it("meets basic accessibility guidelines", () => {
@@ -12,37 +12,37 @@ it("meets basic accessibility guidelines", () => {
 });
 
 it("displays a password", () => {
-	cy.getDataQa("password").invoke("val").should("match", regex());
+	cy.findByTestId("password").invoke("val").should("match", regex());
 });
 
 it("allows the password to be refreshed", () => {
-	cy.getDataQa("password").invoke("val").should("match", regex()).then((oldText) => {
-		cy.getDataQa("refresh").click();
-		cy.getDataQa("password").should("not.have.value", oldText);
+	cy.findByTestId("password").invoke("val").should("match", regex()).then((oldText) => {
+		cy.findByTestId("refresh").click();
+		cy.findByTestId("password").should("not.have.value", oldText);
 	});
 });
 
 it("allows the password to be configured", () => {
-	cy.getDataQa("minLength").clear().type(7);
-	cy.getDataQa("maxLength").clear().type(7);
-	cy.getDataQa("digits").clear().type(3);
+	cy.findByTestId("minLength").clear().type(7);
+	cy.findByTestId("maxLength").clear().type(7);
+	cy.findByTestId("digits").clear().type(3);
 
-	cy.getDataQa("password").invoke("val").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
+	cy.findByTestId("password").invoke("val").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
 });
 
 it("validates the word length input", () => {
-	cy.getDataQa("minLength").clear().type(10);
-	cy.getDataQa("maxLength").clear().type(8);
+	cy.findByTestId("minLength").clear().type(10);
+	cy.findByTestId("maxLength").clear().type(8);
 
-	cy.getDataQa("password").should("have.attr", "placeholder", "No password available");
-	cy.getDataQa("error").should("contain.text", "Maximum length cannot be less than minimum length");
+	cy.findByTestId("password").should("have.attr", "placeholder", "No password available");
+	cy.findByTestId("error").should("contain.text", "Maximum length cannot be less than minimum length");
 });
 
 it("validates the digits input", () => {
-	cy.getDataQa("digits").clear().type(0);
+	cy.findByTestId("digits").clear().type(0);
 
-	cy.getDataQa("password").should("have.attr", "placeholder", "No password available");
-	cy.getDataQa("error").should("contain.text", "Number of digits must be positive");
+	cy.findByTestId("password").should("have.attr", "placeholder", "No password available");
+	cy.findByTestId("error").should("contain.text", "Number of digits must be positive");
 });
 
 const regex = ({ minLength = 8, maxLength = 10, digits = 2 } = {}) =>
