@@ -1,4 +1,4 @@
-ARG NODE_RELEASE=erbium
+ARG NODE_RELEASE=fermium
 
 FROM node:${NODE_RELEASE}-alpine AS build
 
