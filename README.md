@@ -1,6 +1,7 @@
 # Impasse
 
 [![Node.js CI](https://github.com/textbook/impasse/workflows/Node.js%20CI/badge.svg)](https://github.com/textbook/impasse/actions)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/textbook/impasse?label=Docker&logo=docker&logoColor=white&sort=semver)](https://hub.docker.com/r/textbook/impasse/)
 
 Generate moderately secure passwords
 
