@@ -16,7 +16,7 @@ router.use("/", serve);
 
 router.get("/", setup(swaggerJSDoc({
 	apis: [
-		"./server/api.js",
+		"./dist/api.js",
 	],
 	swaggerDefinition: {
 		openapi: "3.0.0",
