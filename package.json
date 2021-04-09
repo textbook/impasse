@@ -33,7 +33,11 @@
     "type": "git",
     "url": "git+https://github.com/textbook/impasse.git"
   },
-  "author": "Jonathan Sharpe <mail@jonrshar.pe>",
+  "author": {
+    "name": "Jonathan Sharpe",
+    "email": "mail@jonrshar.pe",
+    "url": "http://hello.jonrshar.pe"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/textbook/impasse/issues"
@@ -94,6 +98,8 @@
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "morgan": "^1.9.1",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
     "word-list": "^3.1.0"
   },
   "engines": {
