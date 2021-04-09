@@ -1,4 +1,4 @@
-ARG NODE_RELEASE=fermium
+ARG NODE_RELEASE=14.16.1
 
 FROM node:${NODE_RELEASE}-alpine AS build
 
