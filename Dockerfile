@@ -1,6 +1,6 @@
 ARG NODE_RELEASE=14.16.1
 
-FROM node:${NODE_RELEASE}-alpine AS build
+FROM node:${NODE_RELEASE}-alpine3.13 AS build
 
 ARG NODE_RELEASE
 
@@ -18,7 +18,7 @@ COPY ./server ./server
 
 RUN npm run build
 
-FROM node:${NODE_RELEASE}-alpine
+FROM node:${NODE_RELEASE}-alpine3.13
 
 ARG NODE_RELEASE
 
