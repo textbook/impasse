@@ -25,7 +25,7 @@ router.get("/", setup(swaggerJSDoc({
 			description,
 			license: {
 				name: license,
-				url: "https://github.com/textbook/impasse/blob/master/LICENSE",
+				url: "https://github.com/textbook/impasse/blob/main/LICENSE",
 			},
 			title,
 			version,
