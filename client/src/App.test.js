@@ -1,118 +1,150 @@
 import React from "react";
-import { act, fireEvent, render } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
 
 import { App } from "./App";
 import { getPassword } from "./services/passwordService";
 
 jest.mock("./services/passwordService");
 
-describe("App", () => {
-	let deferred;
-	let wrapper;
+const UNRESOLVED = new Promise(() => {});
 
+describe("App", () => {
 	const message = "Foo bar!";
 
-	beforeEach(async () => {
-		deferred = defer();
-		getPassword.mockReturnValue(deferred.promise);
-		wrapper = render(<App />);
-		await tick();
-	});
-
 	it("requests the password", () => {
+		getPassword.mockReturnValue(UNRESOLVED);
+		render(<App />);
+
 		expect(getPassword).toHaveBeenCalled();
 	});
 
 	it("displays a title", () => {
-		let element = wrapper.getByTestId("title");
-		expect(element).toHaveTextContent("Impasse");
+		getPassword.mockReturnValue(UNRESOLVED);
+		render(<App />);
+
+		expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Impasse");
 	});
 
 	it("shows a loading state", () => {
-		expect(wrapper.getByTestId("password-wrapper")).toHaveClass("is-loading");
-	});
+		getPassword.mockReturnValue(UNRESOLVED);
+		render(<App />);
 
-	it("makes a request in response to refresh request", () => {
-		getPassword.mockClear();
-		fireEvent.click(wrapper.getByTestId("refresh"));
-		expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 8, max: 10 });
+		expect(screen.getByTestId("password-wrapper")).toHaveClass("is-loading");
 	});
 
 	it("cleans up on unmount", async () => {
-		wrapper.unmount();
-		await act(async () => {
-			deferred.resolve(message);
-		});
-		await tick();
+		getPassword.mockResolvedValue("too late!");
+		const { unmount } = render(<App />);
+		unmount();
 	});
 
 	describe("when request resolves", () => {
 		beforeEach(async () => {
-			await act(async () => {
-				deferred.resolve(message);
+			getPassword.mockResolvedValue(message);
+			render(<App />);
+			await waitFor(() => {
+				// eslint-disable-next-line jest/no-standalone-expect
+				expect(screen.getByTestId("password-wrapper")).not.toHaveClass("is-loading");
 			});
-			await tick();
 		});
 
-		it("displays password", () => {
-			expect(wrapper.getByTestId("password")).toHaveValue(message);
+		it("displays password", async () => {
+			expect(passwordInput()).toHaveValue(message);
+		});
+
+		it("makes a request in response to refresh request", async () => {
+			getPassword.mockClear();
+			getPassword.mockReturnValue(UNRESOLVED);
+
+			userEvent.click(refreshButton());
+
+			expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 8, max: 10 });
 		});
 
 		it("returns to the loading state when the config changes", async () => {
-			getPassword.mockReturnValue(defer().promise);
-			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
-			await tick();
-			expect(wrapper.getByTestId("password-wrapper")).toHaveClass("is-loading");
+			getPassword.mockReturnValue(UNRESOLVED);
+
+			userEvent.type(minLengthInput(), "7");
+
+			expect(screen.getByTestId("password-wrapper")).toHaveClass("is-loading");
 		});
 	});
 
 	describe("when request rejects", () => {
+		const error = {
+			descriptions: ["bad news", "also broken"],
+			fields: ["min", "max"],
+		};
+
 		beforeEach(async () => {
-			await act(async () => {
-				deferred.reject({
-					descriptions: [message, "also broken"],
-					fields: ["min", "max"],
-				});
+			getPassword.mockRejectedValue(error);
+			render(<App />);
+			await waitFor(() => {
+				// eslint-disable-next-line jest/no-standalone-expect
+				expect(screen.getByTestId("password-wrapper")).not.toHaveClass("is-loading");
 			});
-			await tick();
 		});
 
-		it("displays the error message", () => {
-			expect(wrapper.getByTestId("password")).toHaveAttribute("placeholder", "No password available");
-			expect(wrapper.getByTestId("error")).toHaveTextContent(message);
+		it("displays the error messages", async () => {
+			expect(passwordInput()).toHaveAttribute("placeholder", "No password available");
+			error.descriptions.forEach((errorMessage) => {
+				expect(screen.queryByText(errorMessage)).toBeInTheDocument();
+			});
 		});
 
-		it("sets error states", () => {
-			expect(wrapper.getByLabelText("Minimum word length")).toHaveClass("is-danger");
-			expect(wrapper.getByLabelText("Maximum word length")).toHaveClass("is-danger");
-			expect(wrapper.getByLabelText("Number of digits")).not.toHaveClass("is-danger");
+		it("sets error states", async () => {
+			expect(minLengthInput()).toHaveClass("is-danger");
+			expect(maxLengthInput()).toHaveClass("is-danger");
+			expect(digitsInput()).not.toHaveClass("is-danger");
 		});
 
 		it("clears the error message when successful", async () => {
 			const newPassword = "yay!";
 			getPassword.mockResolvedValue(newPassword);
-			await act(async () => {
-				await fireEvent.click(wrapper.getByTestId("refresh"));
+
+			userEvent.click(refreshButton());
+
+			await waitFor(() => {
+				expect(passwordInput()).toHaveValue(newPassword);
 			});
-			expect(wrapper.getByTestId("password")).toHaveValue(newPassword);
 		});
 	});
 
 	describe("configuration", () => {
 		it("renders Config", () => {
-			expect(wrapper.getByTestId("digits")).toHaveValue(2);
-			expect(wrapper.getByTestId("minLength")).toHaveValue(8);
-			expect(wrapper.getByTestId("maxLength")).toHaveValue(10);
+			getPassword.mockReturnValue(UNRESOLVED);
+			render(<App />);
+
+			expect(digitsInput()).toHaveValue(2);
+			expect(minLengthInput()).toHaveValue(8);
+			expect(maxLengthInput()).toHaveValue(10);
 		});
 
 		it("updates in response to config changes", () => {
-			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
-			expect(wrapper.getByTestId("minLength")).toHaveValue(7);
+			getPassword.mockReturnValue(UNRESOLVED);
+			render(<App />);
+
+			userEvent.type(minLengthInput(), "1");
+
+			expect(minLengthInput()).toHaveValue(81);
 		});
 
 		it("makes a request in response to config changes", () => {
-			fireEvent.change(wrapper.getByTestId("minLength"), { target: { value: 7 } });
-			expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 7, max: 10 });
+			getPassword.mockReturnValue(UNRESOLVED);
+			render(<App />);
+			getPassword.mockClear();
+
+			userEvent.type(digitsInput(), "1");
+
+			expect(getPassword).toHaveBeenCalledWith({ digits: 21, min: 8, max: 10 });
 		});
 	});
+
+	const digitsInput = () => screen.getByRole("spinbutton", { name: "Number of digits" });
+	const maxLengthInput = () => screen.getByRole("spinbutton", { name: "Maximum word length" });
+	const minLengthInput = () => screen.getByRole("spinbutton", { name: "Minimum word length" });
+	const passwordInput = () => screen.getByRole("textbox", { name: "Password" });
+	const refreshButton = () => screen.getByRole("button", { name: "Refresh" });
 });

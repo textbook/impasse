@@ -17,7 +17,6 @@ export default function Input(props) {
 					<div className="control">
 						<input
 							className={`${error ? "is-danger " : ""}input`}
-							data-qa={id}
 							id={id}
 							onChange={onChange}
 							type="number"

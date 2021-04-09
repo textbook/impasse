@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export default function Password(props) {
-	const { loading, onUpdate, password  } = props;
+	const { loading, onUpdate, password } = props;
 	return (
 		<div className="field is-horizontal">
 			<div className="field-label is-normal">
@@ -14,11 +14,10 @@ export default function Password(props) {
 				<div className="field has-addons">
 					<div
 						className={`control is-expanded${loading ? " is-loading" : ""}`}
-						data-qa="password-wrapper"
+						data-testid="password-wrapper"
 					>
 						<input
 							className="input"
-							data-qa="password"
 							id="password"
 							placeholder={password ? "" : "No password available"}
 							readOnly
@@ -26,11 +25,7 @@ export default function Password(props) {
 						/>
 					</div>
 					<div className="control">
-						<button
-							className={"button is-dark"}
-							data-qa="refresh"
-							onClick={onUpdate}
-						>
+						<button className="button is-dark" onClick={onUpdate}>
 							Refresh
 						</button>
 					</div>

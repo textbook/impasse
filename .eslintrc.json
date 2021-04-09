@@ -7,10 +7,6 @@
     "@codeyourfuture/standard",
     "plugin:jest/recommended"
   ],
-  "globals": {
-    "defer": false,
-    "tick": false
-  },
   "parser": "babel-eslint",
   "rules": {
     "jest/expect-expect": "off",

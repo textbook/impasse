@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import "./App.scss";
 
 const renderErrors = (descriptions) => (
-	<ul className="error-list" data-qa="error">
+	<ul className="error-list">
 		{descriptions.map((description, index) => <li key={index}>{description}</li>)}
 	</ul>
 );
@@ -31,8 +31,8 @@ export const App = () => {
 		getPassword(config)
 			.then((password) => {
 				if (mounted) {
-					setLoading(false);
 					setPassword(password);
+					setLoading(false);
 				}
 			})
 			.catch((errors) => {
