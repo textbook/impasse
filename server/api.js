@@ -16,19 +16,28 @@ const router = Router();
  *     parameters:
  *     - in: query
  *       name: digits
- *       required: true
+ *       description: |
+ *         Number of digits
  *       schema:
  *         type: integer
+ *         minimum: 1
+ *         default: 2
  *     - in: query
  *       name: max
- *       required: true
+ *       description: |
+ *         Maximum word length, must be `>= min`
  *       schema:
  *         type: integer
+ *         minimum: 1
+ *         default: 10
  *     - in: query
  *       name: min
- *       required: true
+ *       description: |
+ *         Minimum word length, must be `<= max`
  *       schema:
  *         type: integer
+ *         minimum: 1
+ *         default: 7
  *     responses:
  *       200:
  *         description: A password was generated
