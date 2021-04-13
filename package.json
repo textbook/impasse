@@ -65,7 +65,7 @@
     "css-loader": "^5.2.0",
     "cypress": "^6.9.1",
     "cypress-axe": "^0.12.2",
-    "cypress-multi-reporters": "^1.2.3",
+    "cypress-multi-reporters": "^1.5.0",
     "eslint": "^7.24.0",
     "eslint-plugin-cypress": "^2.7.0",
     "eslint-plugin-jest": "^24.3.5",
