@@ -37,7 +37,7 @@ const router = Router();
  *       schema:
  *         type: integer
  *         minimum: 1
- *         default: 7
+ *         default: 8
  *     responses:
  *       200:
  *         description: A password was generated
