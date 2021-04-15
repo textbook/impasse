@@ -52,4 +52,16 @@ describe("service integration", () => {
 			scope.done();
 		});
 	});
+
+	it("tolerates 5xx errors", async () => {
+		const scope = nock(baseUrl)
+			.get("/api")
+			.reply(500);
+
+		await getPassword().catch(({ descriptions, fields }) => {
+			expect(fields).toEqual([]);
+			expect(descriptions).toContain("Something went wrong");
+			scope.done();
+		});
+	});
 });

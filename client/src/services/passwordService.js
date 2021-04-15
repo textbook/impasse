@@ -17,9 +17,12 @@ export const getPassword = async (query = {}) => {
 		const response = await get("/api", query);
 		return response.password;
 	} catch (errors) {
-		throw {
-			descriptions: errors.map(({ description }) => description),
-			fields: summariseFields(errors),
-		};
+		if (errors) {
+			throw {
+				descriptions: errors.map(({ description }) => description),
+				fields: summariseFields(errors),
+			};
+		}
+		throw { descriptions: ["Something went wrong"], fields: [] };
 	}
 };
