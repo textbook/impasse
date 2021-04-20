@@ -3,19 +3,8 @@ import React, { useEffect, useState } from "react";
 import { getPassword } from "./services/passwordService";
 import Config from "./Config";
 import Password from "./Password";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import { ErrorList, Footer, Header, Pwned } from "./components";
 import "./App.scss";
-
-const renderErrors = (descriptions) => (
-	<div className="message is-danger">
-		<div className="message-body">
-			<ul className="error-list">
-				{descriptions.map((description, index) => <li key={index}>{description}</li>)}
-			</ul>
-		</div>
-	</div>
-);
 
 export const App = () => {
 	const [config, setConfig] = useState({
@@ -25,7 +14,7 @@ export const App = () => {
 	});
 	const [errors, setErrors] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [password, setPassword] = useState("");
+	const [{ password, pwned }, setPassword] = useState({ password: "" });
 
 	const updatePassword = () => {
 		let mounted = true;
@@ -61,6 +50,7 @@ export const App = () => {
 						password={password}
 						onUpdate={updatePassword}
 					/>
+					{pwned && <Pwned />}
 				</div>
 			</section>
 
@@ -71,7 +61,7 @@ export const App = () => {
 						errorFields={errors && errors.fields}
 						onChange={setConfig}
 					/>
-					{errors && renderErrors(errors.descriptions)}
+					{errors && <ErrorList errors={errors} />}
 				</div>
 			</section>
 

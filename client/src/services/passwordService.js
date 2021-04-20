@@ -14,8 +14,7 @@ const summariseFields = (errors) => {
 
 export const getPassword = async (query = {}) => {
 	try {
-		const response = await get("/api", query);
-		return response.password;
+		return await get("/api", query);
 	} catch (errors) {
 		if (errors) {
 			throw {

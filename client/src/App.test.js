@@ -35,14 +35,14 @@ describe("App", () => {
 	});
 
 	it("cleans up on unmount", async () => {
-		getPassword.mockResolvedValue("too late!");
+		getPassword.mockResolvedValue({ password: "too late!" });
 		const { unmount } = render(<App />);
 		unmount();
 	});
 
-	describe("when request resolves", () => {
+	describe("when request resolves with clean password", () => {
 		beforeEach(async () => {
-			getPassword.mockResolvedValue(message);
+			getPassword.mockResolvedValue({ password: message });
 			render(<App />);
 			await waitFor(() => {
 				// eslint-disable-next-line jest/no-standalone-expect
@@ -52,6 +52,10 @@ describe("App", () => {
 
 		it("displays password", async () => {
 			expect(passwordInput()).toHaveValue(message);
+		});
+
+		it("doesn't display a warning", () => {
+			expect(screen.queryByText("This password has been pwned.")).not.toBeInTheDocument();
 		});
 
 		it("makes a request in response to refresh request", async () => {
@@ -69,6 +73,19 @@ describe("App", () => {
 			userEvent.type(minLengthInput(), "7");
 
 			expect(screen.getByTestId("password-wrapper")).toHaveClass("is-loading");
+		});
+	});
+
+	describe("when request resolves with pwned password", () => {
+		it("warns the user", async () => {
+			getPassword.mockResolvedValue({ password: message, pwned: true });
+			render(<App />);
+			await waitFor(() => {
+				// eslint-disable-next-line jest/no-standalone-expect
+				expect(screen.getByTestId("password-wrapper")).not.toHaveClass("is-loading");
+			});
+
+			expect(screen.getByText("This password has been pwned.")).toBeInTheDocument();
 		});
 	});
 
@@ -102,7 +119,7 @@ describe("App", () => {
 
 		it("clears the error message when successful", async () => {
 			const newPassword = "yay!";
-			getPassword.mockResolvedValue(newPassword);
+			getPassword.mockResolvedValue({ password: newPassword });
 
 			userEvent.click(refreshButton());
 

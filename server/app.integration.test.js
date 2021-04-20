@@ -1,8 +1,22 @@
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 import request from "supertest";
 
 import app from "./app";
 
+const server = setupServer(
+	rest.get("https://api.pwnedpasswords.com/range/:range", (req, res, ctx) => {
+		return res(ctx.status(200), ctx.text(""));
+	}),
+);
+
 describe("password API", () => {
+	beforeAll(() => server.listen());
+
+	beforeEach(() => server.resetHandlers());
+
+	afterAll(() => server.close());
+
 	it("allows the password word length to be configured", async () => {
 		await request(app)
 			.get("/api").query({ min: 7, max: 7 })
@@ -41,9 +55,23 @@ describe("password API", () => {
 
 	it("returns 500 on unexpected errors", async () => {
 		jest.resetModules();
-		jest.mock("./password/service", () => ({ getPassword: jest.fn().mockRejectedValue("oh no!") }));
+		jest.mock("./password/password", () => ({ __esModule: true, default: () => Promise.reject("oh no!") }));
 		const module = await import("./app");
 
 		await request(module.default).get("/api").expect(500);
+	});
+
+	it("exposes whether a password has been pwned", async () => {
+		const password = "password123";
+		server.use(rest.get("https://api.pwnedpasswords.com/range/CBFDA", (req, res, ctx) => {
+			return res(ctx.status(200), ctx.text("C6008F9CAB4083784CBD1874F76618D2A97:13"));
+		}));
+		jest.resetModules();
+		jest.mock("./password/password", () => {
+			return ({ __esModule: true, default: () => Promise.resolve(password) });
+		});
+		const module = await import("./app");
+
+		await request(module.default).get("/api").expect(200, { password, pwned: true });
 	});
 });

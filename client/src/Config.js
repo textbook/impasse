@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Input from "./components/Input";
+import { Input } from "./components";
 
 export function Config({ config, errorFields, onChange }) {
 	const handleChange = (prop) => (event) => {

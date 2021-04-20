@@ -47,6 +47,8 @@ const router = Router();
  *               properties:
  *                 password:
  *                   type: string
+ *                 pwned:
+ *                   type: boolean
  *       400:
  *         description: The request was invalid
  *         content:
@@ -77,7 +79,7 @@ router.get("/", (req, res) => {
 		return res.status(400).json({ errors });
 	}
 	getPassword(config)
-		.then((password) => res.json({ password }))
+		.then((data) => res.json(data))
 		.catch(() => res.sendStatus(500));
 });
 

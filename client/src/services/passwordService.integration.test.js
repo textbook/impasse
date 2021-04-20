@@ -1,38 +1,39 @@
-import axios from "axios";
-import httpAdapter from "axios/lib/adapters/http";
-import nock from "nock";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 
 import { getPassword } from "./passwordService";
-
-const baseUrl = "http://example.org";
-
-axios.defaults.adapter = httpAdapter;
-axios.defaults.baseURL = baseUrl;
 
 describe("service integration", () => {
 	const password = "opensesame";
 
-	it("makes a simple request", async () => {
-		const scope = nock(baseUrl)
-			.get("/api")
-			.reply(200, { password });
+	const server = setupServer(
+		rest.get("/api", (req, res, ctx) => {
+			return res(ctx.status(200), ctx.json({ password }));
+		})
+	);
 
+	beforeAll(() => server.listen());
+
+	beforeEach(() => server.resetHandlers());
+
+	afterAll(() => server.close());
+
+	it("makes a simple request", async () => {
 		const result = await getPassword();
 
-		expect(result).toBe(password);
-		scope.done();
+		expect(result).toEqual({ password });
 	});
 
 	it("makes a request with query parameters", async () => {
-		const scope = nock(baseUrl)
-			.get("/api")
-			.query({ min: 7, max: 7 })
-			.reply(200, { password });
+		server.use(rest.get("/api", (req, res, ctx) => {
+			expect(req.url.searchParams.get("min")).toBe("7");
+			expect(req.url.searchParams.get("max")).toBe("7");
+			return res(ctx.status(200), ctx.json({ password }));
+		}));
 
 		const result = await getPassword({ min: 7, max: 7 });
 
-		expect(result).toBe(password);
-		scope.done();
+		expect(result).toEqual({ password });
 	});
 
 	it("exposes error messages on failure", async () => {
@@ -40,28 +41,26 @@ describe("service integration", () => {
 			{ description: "pranged it", fields: ["foo"] },
 			{ description: "also an issue", fields: ["bar"] },
 		];
-		const scope = nock(baseUrl)
-			.get("/api")
-			.reply(400, { errors });
+		server.use(rest.get("/api", (req, res, ctx) => {
+			return res(ctx.status(400), ctx.json({ errors }));
+		}));
 
 		await getPassword().catch(({ descriptions, fields }) => {
 			expect(fields).toContain("foo");
 			expect(fields).toContain("bar");
 			expect(descriptions).toContain("pranged it");
 			expect(descriptions).toContain("also an issue");
-			scope.done();
 		});
 	});
 
 	it("tolerates 5xx errors", async () => {
-		const scope = nock(baseUrl)
-			.get("/api")
-			.reply(500);
+		server.use(rest.get("/api", (req, res, ctx) => {
+			return res(ctx.status(500));
+		}));
 
 		await getPassword().catch(({ descriptions, fields }) => {
 			expect(fields).toEqual([]);
 			expect(descriptions).toContain("Something went wrong");
-			scope.done();
 		});
 	});
 });
