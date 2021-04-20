@@ -15,7 +15,7 @@ const summariseFields = (errors) => {
 export const getPassword = async (query = {}) => {
 	try {
 		return await get("/api", query);
-	} catch (errors) {
+	} catch ({ errors }) {
 		if (errors) {
 			throw {
 				descriptions: errors.map(({ description }) => description),
