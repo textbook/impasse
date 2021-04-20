@@ -1,8 +1,7 @@
 import { Router } from "express";
 
 import parseConfig from "./config";
-import password from "./password";
-import getWords from "./words";
+import { getPassword } from "./service";
 
 const router = Router();
 
@@ -73,13 +72,12 @@ const router = Router();
  *
  */
 router.get("/", (req, res) => {
-	const [{ min, max, digits }, errors] = parseConfig(req.query);
+	const [config, errors] = parseConfig(req.query);
 	if (errors) {
 		return res.status(400).json({ errors });
 	}
-	getWords()
-		.then((words) => words.filter((word) => word.length >= min && word.length <= max))
-		.then((words) => res.json({ password: password(words, digits) }))
+	getPassword(config)
+		.then((password) => res.json({ password }))
 		.catch(() => res.sendStatus(500));
 });
 

@@ -16,7 +16,7 @@ router.use("/", serve);
 
 router.get("/", setup(swaggerJSDoc({
 	apis: [
-		"./dist/api.js",
+		"./dist/password/controller.js",
 	],
 	swaggerDefinition: {
 		openapi: "3.0.0",

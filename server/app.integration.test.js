@@ -38,4 +38,12 @@ describe("password API", () => {
 				],
 			});
 	});
+
+	it("returns 500 on unexpected errors", async () => {
+		jest.resetModules();
+		jest.mock("./password/service", () => ({ getPassword: jest.fn().mockRejectedValue("oh no!") }));
+		const module = await import("./app");
+
+		await request(module.default).get("/api").expect(500);
+	});
 });

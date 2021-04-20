@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import path from "path";
 
-import api from "./api";
+import api from "./password/controller";
 import { configuredHelmet, httpsOnly } from "./middleware";
 import swagger from "./swagger";
 
