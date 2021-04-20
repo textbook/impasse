@@ -14,17 +14,20 @@ export const App = () => {
 	});
 	const [errors, setErrors] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [{ password, pwned }, setPassword] = useState({ password: "" });
+	const [password, setPassword] = useState("");
+	const [pwned, setPwned] = useState(false);
 
 	const updatePassword = () => {
 		let mounted = true;
 		setLoading(true);
 		setPassword("");
+		setPwned(false);
 		setErrors(null);
 		getPassword(config)
-			.then((password) => {
+			.then(({ password, pwned }) => {
 				if (mounted) {
 					setPassword(password);
+					setPwned(pwned);
 					setLoading(false);
 				}
 			})
