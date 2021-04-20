@@ -8,9 +8,13 @@ import Header from "./components/Header";
 import "./App.scss";
 
 const renderErrors = (descriptions) => (
-	<ul className="error-list">
-		{descriptions.map((description, index) => <li key={index}>{description}</li>)}
-	</ul>
+	<div className="message is-danger">
+		<div className="message-body">
+			<ul className="error-list">
+				{descriptions.map((description, index) => <li key={index}>{description}</li>)}
+			</ul>
+		</div>
+	</div>
 );
 
 export const App = () => {
