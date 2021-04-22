@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./Footer.scss";
 import madeWithBulma from "./made-with-bulma.png";
 

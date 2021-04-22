@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 
 export default function Password(props) {
 	const { loading, onUpdate, password } = props;

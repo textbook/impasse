@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getPassword } from "./services/passwordService";
 import Config from "./Config";

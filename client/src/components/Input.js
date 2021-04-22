@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 
 export default function Input(props) {
 	const { error, id, label, onChange, value } = props;
