@@ -1,0 +1,16 @@
+.footer {
+	a {
+		// darker blue for AAA WCAG compliance
+		color: #1D53AA;
+
+		&.bulma-logo {
+			vertical-align: top;
+			margin-left: 0.5rem;
+
+			img {
+				height: 24px;
+				width: 128px;
+			}
+		}
+	}
+}

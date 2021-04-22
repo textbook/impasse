@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import "./ErrorList.scss";
+
 const ErrorList = ({ errors: { descriptions } }) => (
 	<div className="message is-danger">
 		<div className="message-body">
