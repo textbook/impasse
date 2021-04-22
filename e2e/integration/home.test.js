@@ -46,5 +46,13 @@ it("validates the digits input", () => {
 	cy.findByText("Number of digits must be positive").should("exist");
 });
 
+it("shows a useful error when there are too few words", () => {
+	cy.findByRole("spinbutton", { name: "Minimum word length" }).clear().type(30);
+	cy.findByRole("spinbutton", { name: "Maximum word length" }).clear().type(30);
+
+	cy.findByRole("textbox", { name: "Password" }).should("have.attr", "placeholder", "No password available");
+	cy.findByText("There are not enough words in the current configuration").should("exist");
+});
+
 const regex = ({ minLength = 8, maxLength = 10, digits = 2 } = {}) =>
 	new RegExp(`[a-z]{${minLength},${maxLength}}\\d{${digits}}[a-z]{${minLength},${maxLength}}[!@#$%^&*]`);

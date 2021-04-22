@@ -18,6 +18,6 @@ describe("password", () => {
 	});
 
 	it("fails loudly when not enough words", () => {
-		expect(() => password(["one"])).toThrow();
+		expect(() => password(["one"])).toThrow(/^too few options/);
 	});
 });

@@ -47,8 +47,10 @@ const router = Router();
  *               properties:
  *                 password:
  *                   type: string
+ *                   example: 'beclowned49rhizocarp%'
  *                 pwned:
  *                   type: boolean
+ *                   example: false
  *       400:
  *         description: The request was invalid
  *         content:
@@ -64,11 +66,15 @@ const router = Router();
  *                     properties:
  *                       description:
  *                         type: string
+ *                         example: Maximum length cannot be less than minimum length
  *                       fields:
  *                         type: array
  *                         minItems: 1
  *                         items:
  *                           type: string
+ *                         example:
+ *                         - min
+ *                         - max
  *       500:
  *         description: Something went wrong on the server
  *
@@ -80,7 +86,15 @@ router.get("/", (req, res) => {
 	}
 	getPassword(config)
 		.then((data) => res.json(data))
-		.catch(() => res.sendStatus(500));
+		.catch((err) => {
+			if (err?.message?.startsWith("too few options")) {
+				return res.status(400).json({ errors: [{
+					description: "There are not enough words in the current configuration",
+					fields: ["max", "min"],
+				}] });
+			}
+			res.sendStatus(500);
+		});
 });
 
 export default router;

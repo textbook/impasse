@@ -22,6 +22,7 @@ describe("password API", () => {
 			.get("/api").query({ min: 7, max: 7 })
 			.expect(200).then((res) => {
 				expect(res.body.password).toMatch(/[a-z]{7}\d{2}[a-z]{7}[!@#$%^&*]/);
+				expect(res.body.pwned).toBe(false);
 			});
 	});
 
@@ -30,16 +31,18 @@ describe("password API", () => {
 			.get("/api").query({ digits: 3 })
 			.expect(200).then((res) => {
 				expect(res.body.password).toMatch(/[a-z]{8,10}\d{3}[a-z]{8,10}[!@#$%^&*]/);
+				expect(res.body.pwned).toBe(false);
 			});
 	});
 
 	it("rejects inappropriate word length configuration", async () => {
 		await request(app)
 			.get("/api").query({ min: 10, max: 5 })
-			.expect(400, {
-				errors: [
-					{ description: "Maximum length cannot be less than minimum length", fields: ["max", "min"] },
-				],
+			.expect(400)
+			.then(({ body: { errors: [error] } }) => {
+				expect(error.description).toBe("Maximum length cannot be less than minimum length");
+				expect(error.fields).toContain("max");
+				expect(error.fields).toContain("min");
 			});
 	});
 
@@ -55,10 +58,25 @@ describe("password API", () => {
 
 	it("returns 500 on unexpected errors", async () => {
 		jest.resetModules();
-		jest.mock("./password/password", () => ({ __esModule: true, default: () => Promise.reject("oh no!") }));
+		jest.doMock("./password/password", () => ({ __esModule: true, default: () => Promise.reject("oh no!") }));
 		const module = await import("./app");
 
 		await request(module.default).get("/api").expect(500);
+	});
+
+	it("returns 400 on expected errors", async () => {
+		jest.resetModules();
+		jest.doMock("./password/password", () => ({ __esModule: true, default: () => Promise.reject(new Error("too few options...")) }));
+		const module = await import("./app");
+
+		await request(module.default)
+			.get("/api")
+			.expect(400)
+			.then(({ body: { errors: [error] } }) => {
+				expect(error.description).toBe("There are not enough words in the current configuration");
+				expect(error.fields).toContain("max");
+				expect(error.fields).toContain("min");
+			});
 	});
 
 	it("exposes whether a password has been pwned", async () => {
@@ -67,7 +85,7 @@ describe("password API", () => {
 			return res(ctx.status(200), ctx.text("C6008F9CAB4083784CBD1874F76618D2A97:13"));
 		}));
 		jest.resetModules();
-		jest.mock("./password/password", () => {
+		jest.doMock("./password/password", () => {
 			return ({ __esModule: true, default: () => Promise.resolve(password) });
 		});
 		const module = await import("./app");
