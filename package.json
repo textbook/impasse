@@ -94,7 +94,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.10",
+    "@babel/runtime": "^7.13.17",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "hibp": "^11.0.0",
