@@ -66,7 +66,10 @@ describe("password API", () => {
 
 	it("returns 400 on expected errors", async () => {
 		jest.resetModules();
-		jest.doMock("./password/password", () => ({ __esModule: true, default: () => Promise.reject(new Error("too few options...")) }));
+		jest.doMock("./password/password", () => ({
+			__esModule: true,
+			default: () => Promise.reject(new Error("too few options...")),
+		}));
 		const module = await import("./app");
 
 		await request(module.default)

@@ -5,6 +5,9 @@ const { merge } = require("webpack-merge");
 const common = require("./common.config");
 const { devDependencies } = require("../../package.json");
 
+const cdn = (packageName) =>
+	`https://unpkg.com/${packageName}@${devDependencies[packageName]}/umd/${packageName}.production.min.js`;
+
 module.exports = merge(common, {
 	devtool: "source-map",
 	mode: "production",
@@ -32,7 +35,7 @@ module.exports = merge(common, {
 			].map(({ packageName, variableName }) => ({
 				attributes: { crossorigin: "" },
 				external: { packageName, variableName },
-				path: `https://unpkg.com/${packageName}@${devDependencies[packageName]}/umd/${packageName}.production.min.js`,
+				path: cdn(packageName),
 			})),
 		}),
 	],

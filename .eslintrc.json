@@ -9,6 +9,7 @@
   ],
   "parser": "babel-eslint",
   "rules": {
+    "max-len": ["error", 120],
     "jest/expect-expect": "off",
     "jest/no-focused-tests": "error",
     "jest/no-disabled-tests": "error"

@@ -28,7 +28,9 @@ it("allows the password to be configured", () => {
 	cy.findByRole("spinbutton", { name: "Maximum word length" }).clear().type(7);
 	cy.findByRole("spinbutton", { name: "Number of digits" }).clear().type(3);
 
-	cy.findByRole("textbox", { name: "Password" }).invoke("val").should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
+	cy.findByRole("textbox", { name: "Password" })
+		.invoke("val")
+		.should("match", regex({ minLength: 7, maxLength: 7, digits: 3 }));
 });
 
 it("validates the word length input", () => {
