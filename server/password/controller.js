@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import parseConfig from "./config";
-import { getPassword } from "./service";
+import { getPassword, tooFewWords } from "./service";
 
 const router = Router();
 
@@ -51,6 +51,9 @@ const router = Router();
  *                 pwned:
  *                   type: boolean
  *                   example: false
+ *                 words:
+ *                   type: number
+ *                   example: 117583
  *       400:
  *         description: The request was invalid
  *         content:
@@ -87,7 +90,7 @@ router.get("/", (req, res) => {
 	getPassword(config)
 		.then((data) => res.json(data))
 		.catch((err) => {
-			if (err?.message?.startsWith("too few options")) {
+			if (err?.message === tooFewWords) {
 				return res.status(400).json({ errors: [{
 					description: "There are not enough words in the current configuration",
 					fields: ["max", "min"],

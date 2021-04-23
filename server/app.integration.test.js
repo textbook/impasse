@@ -17,6 +17,15 @@ describe("password API", () => {
 
 	afterAll(() => server.close());
 
+	it("exposes the number of words available when creating the password", async () => {
+		await request(app)
+			.get("/api").query({ min: 27, max: 28 })
+			.expect(200)
+			.then((res) => {
+				expect(res.body.words).toBe(3);
+			});
+	});
+
 	it("allows the password word length to be configured", async () => {
 		await request(app)
 			.get("/api").query({ min: 7, max: 7 })
@@ -56,24 +65,9 @@ describe("password API", () => {
 			});
 	});
 
-	it("returns 500 on unexpected errors", async () => {
-		jest.resetModules();
-		jest.doMock("./password/password", () => ({ __esModule: true, default: () => Promise.reject("oh no!") }));
-		const module = await import("./app");
-
-		await request(module.default).get("/api").expect(500);
-	});
-
 	it("returns 400 on expected errors", async () => {
-		jest.resetModules();
-		jest.doMock("./password/password", () => ({
-			__esModule: true,
-			default: () => Promise.reject(new Error("too few options...")),
-		}));
-		const module = await import("./app");
-
-		await request(module.default)
-			.get("/api")
+		await request(app)
+			.get("/api").query({ min: 100, max: 100 })
 			.expect(400)
 			.then(({ body: { errors: [error] } }) => {
 				expect(error.description).toBe("There are not enough words in the current configuration");
@@ -82,17 +76,33 @@ describe("password API", () => {
 			});
 	});
 
+	it("returns 500 on unexpected errors", async () => {
+		jest.resetModules();
+		jest.doMock("./password/password", () => ({
+			__esModule: true,
+			default: () => {
+				throw new Error("oh no!");
+			},
+		}));
+		const module = await import("./app");
+
+		await request(module.default).get("/api").expect(500);
+	});
+
 	it("exposes whether a password has been pwned", async () => {
 		const password = "password123";
 		server.use(rest.get("https://api.pwnedpasswords.com/range/CBFDA", (req, res, ctx) => {
 			return res(ctx.status(200), ctx.text("C6008F9CAB4083784CBD1874F76618D2A97:13"));
 		}));
 		jest.resetModules();
-		jest.doMock("./password/password", () => {
-			return ({ __esModule: true, default: () => Promise.resolve(password) });
-		});
+		jest.doMock("./password/password", () => ({ __esModule: true, default: () => password }));
 		const module = await import("./app");
 
-		await request(module.default).get("/api").expect(200, { password, pwned: true });
+		await request(module.default)
+			.get("/api")
+			.expect(200)
+			.then((res) => {
+				expect(res.body).toMatchObject({ password, pwned: true });
+			});
 	});
 });

@@ -3,7 +3,15 @@ import { pwnedPassword } from "hibp";
 import createPassword from "./password";
 import getWords from "./words";
 
-export const getPassword = ({ min, max, digits }) => getWords()
-	.then((words) => words.filter((word) => word.length >= min && word.length <= max))
-	.then((words) => createPassword(words, digits))
-	.then((password) => pwnedPassword(password).then((count) => ({ password, pwned: count > 0 })));
+export const tooFewWords = "too few words available to create a password";
+
+export const getPassword = async ({ min, max, digits }) => {
+	let words = await getWords();
+	words = words.filter((word) => word.length >= min && word.length <= max);
+	if (words.length < 2) {
+		throw new Error(tooFewWords);
+	}
+	const password = createPassword(words, digits);
+	const count = await pwnedPassword(password);
+	return { password, pwned: count > 0, words: words.length };
+};
