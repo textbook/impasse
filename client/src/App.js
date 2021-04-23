@@ -7,6 +7,8 @@ import { ErrorList, Footer, Header, Pwned } from "./components";
 import "./App.scss";
 import Strength from "./components/Strength";
 
+const defaultValues = { password: "", pwned: false, words: 0 };
+
 export const App = () => {
 	const [config, setConfig] = useState({
 		digits: 2,
@@ -15,20 +17,17 @@ export const App = () => {
 	});
 	const [errors, setErrors] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [password, setPassword] = useState("");
-	const [pwned, setPwned] = useState(false);
+	const [{ password, pwned, words }, setData] = useState(defaultValues);
 
 	const updatePassword = () => {
 		let mounted = true;
-		setLoading(true);
-		setPassword("");
-		setPwned(false);
+		setData(defaultValues);
 		setErrors(null);
+		setLoading(true);
 		getPassword(config)
-			.then(({ password, pwned }) => {
+			.then((data) => {
 				if (mounted) {
-					setPassword(password);
-					setPwned(pwned);
+					setData(data);
 					setLoading(false);
 				}
 			})
