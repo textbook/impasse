@@ -58,5 +58,13 @@ it("shows a useful error when there are too few words", () => {
 	cy.checkA11y();
 });
 
+it("shows the password strength", () => {
+	cy.injectAxe();
+
+	cy.findByText("a naive entropy of between 103.73 and 125.57").should("exist");
+	cy.findByText("actual entropy is 43.33 (equivalent to 8 characters)").should("exist");
+	cy.checkA11y();
+});
+
 const regex = ({ minLength = 8, maxLength = 10, digits = 2 } = {}) =>
 	new RegExp(`[a-z]{${minLength},${maxLength}}\\d{${digits}}[a-z]{${minLength},${maxLength}}[!@#$%^&*]`);

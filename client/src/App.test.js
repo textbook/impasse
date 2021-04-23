@@ -40,7 +40,7 @@ describe("App", () => {
 
 	describe("when request resolves with clean password", () => {
 		beforeEach(async () => {
-			getPassword.mockResolvedValue({ password: message });
+			getPassword.mockResolvedValue({ password: message, pwned: false, words: 117_583 });
 			render(<App />);
 			await waitFor(() => {
 				// eslint-disable-next-line jest/no-standalone-expect
@@ -50,6 +50,11 @@ describe("App", () => {
 
 		it("displays password", async () => {
 			expect(passwordInput()).toHaveValue(message);
+		});
+
+		it("displays naive and actual password strength", () => {
+			expect(screen.queryByText("a naive entropy of between 103.73 and 125.57")).toBeInTheDocument();
+			expect(screen.queryByText("actual entropy is 43.33 (equivalent to 8 characters)")).toBeInTheDocument();
 		});
 
 		it("doesn't display a warning", () => {

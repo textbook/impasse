@@ -5,6 +5,7 @@ import Config from "./Config";
 import Password from "./Password";
 import { ErrorList, Footer, Header, Pwned } from "./components";
 import "./App.scss";
+import Strength from "./components/Strength";
 
 export const App = () => {
 	const [config, setConfig] = useState({
@@ -54,6 +55,7 @@ export const App = () => {
 						onUpdate={updatePassword}
 					/>
 					{pwned && <Pwned />}
+					{words && <Strength config={config} words={words} />}
 				</div>
 			</section>
 
