@@ -30,6 +30,7 @@ describe("App", () => {
 		render(<App />);
 
 		expect(screen.getByTestId("password-wrapper")).toHaveClass("is-loading");
+		expect(screen.queryByText("0")).not.toBeInTheDocument();
 	});
 
 	it("cleans up on unmount", async () => {

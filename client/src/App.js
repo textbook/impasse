@@ -54,7 +54,7 @@ export const App = () => {
 						onUpdate={updatePassword}
 					/>
 					{pwned && <Pwned />}
-					{words && <Strength config={config} words={words} />}
+					{words > 0 && <Strength config={config} words={words} />}
 				</div>
 			</section>
 
