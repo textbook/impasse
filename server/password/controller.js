@@ -47,12 +47,15 @@ const router = Router();
  *               properties:
  *                 password:
  *                   type: string
+ *                   description: the generated password
  *                   example: 'beclowned49rhizocarp%'
  *                 pwned:
  *                   type: boolean
+ *                   description: whether the password appears on _"have I been pwned?"_
  *                   example: false
  *                 words:
  *                   type: number
+ *                   description: the number of words available when generating the password
  *                   example: 117583
  *       400:
  *         description: The request was invalid
@@ -63,15 +66,18 @@ const router = Router();
  *               properties:
  *                 errors:
  *                   type: array
+ *                   description: a list of errors in the request
  *                   minItems: 1
  *                   items:
  *                     type: object
  *                     properties:
  *                       description:
  *                         type: string
+ *                         description: a human-readable description of the error
  *                         example: Maximum length cannot be less than minimum length
  *                       fields:
  *                         type: array
+ *                         description: the fields that caused the error
  *                         minItems: 1
  *                         items:
  *                           type: string

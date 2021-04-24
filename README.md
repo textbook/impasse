@@ -17,6 +17,10 @@ This gives a password length of between 19 and 23 characters, and a pool of 44 c
 symbols). Naively that implies an entropy between 103.73 and 125.57. However there are 117,583 words in the dataset
 with 8-10 letters, giving an entropy of only 43.33, equivalent to a password length of 8 with the same character pool.
 
+## Documentation
+
+See API documentation at https://impasse.herokuapp.com/docs.
+
 ## Scripts
 
 Various scripts are provided in the package file, but many are helpers for other scripts; here are the ones you'll
