@@ -4,30 +4,30 @@ import React from "react";
 import { Input } from "./components";
 
 export function Config({ config, errorFields, onChange }) {
-	const handleChange = (prop) => (event) => {
-		onChange({ ...config, [prop]: parseInt(event.target.value) });
+	const handleChange = ({ target: { name, value } }) => {
+		onChange({ ...config, [name]: parseInt(value) });
 	};
 	return (
 		<>
 			<Input
 				error={errorFields && errorFields.includes("min")}
-				id="minLength"
 				label="Minimum word length"
-				onChange={handleChange("min")}
+				name="min"
+				onChange={handleChange}
 				value={config.min}
 			/>
 			<Input
 				error={errorFields && errorFields.includes("max")}
-				id="maxLength"
 				label="Maximum word length"
-				onChange={handleChange("max")}
+				name="max"
+				onChange={handleChange}
 				value={config.max}
 			/>
 			<Input
 				error={errorFields && errorFields.includes("digits")}
-				id="digits"
 				label="Number of digits"
-				onChange={handleChange("digits")}
+				name="digits"
+				onChange={handleChange}
 				value={config.digits}
 			/>
 		</>
