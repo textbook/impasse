@@ -45,11 +45,9 @@ describe("service integration", () => {
 			return res(ctx.status(400), ctx.json({ errors }));
 		}));
 
-		await getPassword().catch(({ descriptions, fields }) => {
-			expect(fields).toContain("foo");
-			expect(fields).toContain("bar");
-			expect(descriptions).toContain("pranged it");
-			expect(descriptions).toContain("also an issue");
+		await expect(getPassword()).rejects.toMatchObject({
+			descriptions: expect.arrayContaining(["pranged it", "also an issue"]),
+			fields: expect.arrayContaining(["foo", "bar"]),
 		});
 	});
 
@@ -58,9 +56,6 @@ describe("service integration", () => {
 			return res(ctx.status(500));
 		}));
 
-		await getPassword().catch(({ descriptions, fields }) => {
-			expect(fields).toEqual([]);
-			expect(descriptions).toContain("Something went wrong");
-		});
+		await expect(getPassword()).rejects.toEqual({ descriptions: ["Something went wrong"], fields: [] });
 	});
 });
