@@ -5,13 +5,19 @@ import request from "supertest";
 import app from "./app";
 
 const server = setupServer(
-	rest.get("https://api.pwnedpasswords.com/range/:range", (req, res, ctx) => {
+	rest.get("https://api.pwnedpasswords.com/range/:range", (_, res, ctx) => {
 		return res(ctx.status(200), ctx.text(""));
 	}),
 );
 
 describe("password API", () => {
-	beforeAll(() => server.listen());
+	beforeAll(() => server.listen({
+		onUnhandledRequest: ({ method, url }) => {
+			if (!url.pathname.startsWith("/api")) {
+				throw new Error(`Unhandled ${method} request to ${url}`);
+			}
+		},
+	}));
 
 	beforeEach(() => server.resetHandlers());
 
