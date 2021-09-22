@@ -25,6 +25,8 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v2
+    - run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+      id: nvmrc
     - name: Get full tag
       id: full_tag
       run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
@@ -42,6 +44,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - uses: docker/build-push-action@v2
       with:
+        build-args: |
+          NODE_RELEASE=${{ steps.nvmrc.outputs.NODE_VERSION }}
         push: true
         tags: |
           textbook/impasse

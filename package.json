@@ -14,7 +14,7 @@
     "dev:build": "npm run build:server -- --source-maps --watch",
     "dev:client": "webpack serve --config client/webpack/dev.config.js",
     "dev:serve": "wait-on -l file:dist/server.js && cross-env PORT=3100 nodemon dist/server.js --watch dist",
-    "predocker": "docker build . -t textbook/impasse",
+    "predocker": "docker build . -t textbook/impasse --build-arg NODE_RELEASE=$(cat .nvmrc)",
     "docker": "docker run -e NODE_ENV=development -p 3000:80 textbook/impasse",
     "e2e": "concurrently -k -s first -n \"app,e2e\" \"npm run serve\" \"npm run e2e:safe\"",
     "e2e:dev": "cypress open",
