@@ -1,6 +1,6 @@
 it("shows when a password has been pwned", () => {
 	const password = "password123";
-	cy.intercept("/api", { password, pwned: true });
+	cy.intercept("/api?*", { password, pwned: true });
 	cy.visit("/");
 	cy.injectAxe();
 
