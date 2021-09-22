@@ -19,7 +19,7 @@ jobs:
     - run: npm run e2e
     - uses: docker/setup-buildx-action@v1
     - run: npm run e2e:docker
-  deploy:
+  deploy-docker:
     runs-on: ubuntu-20.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
@@ -53,6 +53,12 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         repository: textbook/impasse
+  deploy-heroku:
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    steps:
+    - uses: actions/checkout@v2
     - uses: akhileshns/heroku-deploy@v3.6.8
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
