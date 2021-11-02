@@ -7,7 +7,7 @@
     "@codeyourfuture/standard",
     "plugin:jest/recommended"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "rules": {
     "max-len": ["error", 120],
     "jest/expect-expect": "off",
