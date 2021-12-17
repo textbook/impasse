@@ -95,7 +95,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.5",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "helmet": "^4.6.0",
     "hibp": "^11.0.0",
     "morgan": "^1.9.1",
