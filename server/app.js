@@ -1,17 +1,17 @@
 import express from "express";
-import morgan from "morgan";
 import path from "path";
 
+import config from "./config";
 import api from "./password/controller";
-import { configuredHelmet, httpsOnly } from "./middleware";
+import { configuredHelmet, configuredMorgan, httpsOnly } from "./middleware";
 import swagger from "./swagger";
 
 const app = express();
 
 app.use(configuredHelmet());
-app.use(morgan("dev"));
+app.use(configuredMorgan());
 
-if (app.get("env") === "production") {
+if (config.production) {
 	app.enable("trust proxy");
 	app.use(httpsOnly());
 }
