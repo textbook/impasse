@@ -88,22 +88,22 @@ const router = Router();
  *         description: Something went wrong on the server
  *
  */
-router.get("/", (req, res) => {
+router.get("/", async (req, res, next) => {
 	const [config, errors] = parseConfig(req.query);
 	if (errors) {
 		return res.status(400).json({ errors });
 	}
-	getPassword(config)
-		.then((data) => res.json(data))
-		.catch((err) => {
-			if (err?.message === tooFewWords) {
-				return res.status(400).json({ errors: [{
-					description: "There are not enough words in the current configuration",
-					fields: ["max", "min"],
-				}] });
-			}
-			res.sendStatus(500);
-		});
+	try {
+		res.json(await getPassword(config));
+	} catch (err) {
+		if (err?.message === tooFewWords) {
+			return res.status(400).json({ errors: [{
+				description: "There are not enough words in the current configuration",
+				fields: ["max", "min"],
+			}] });
+		}
+		next(err);
+	}
 });
 
 export default router;

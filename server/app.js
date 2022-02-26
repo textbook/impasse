@@ -3,7 +3,7 @@ import path from "path";
 
 import config from "./config";
 import api from "./password/controller";
-import { configuredHelmet, configuredMorgan, httpsOnly } from "./middleware";
+import { configuredHelmet, configuredMorgan, httpsOnly, logErrors } from "./middleware";
 import swagger from "./swagger";
 
 const app = express();
@@ -19,5 +19,7 @@ if (config.production) {
 app.use("/api", api);
 app.use("/docs", swagger);
 app.use(express.static(path.join(__dirname, "static")));
+
+app.use(logErrors());
 
 export default app;

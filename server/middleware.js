@@ -24,3 +24,11 @@ export const httpsOnly = () => (req, res, next) => {
 	}
 	next();
 };
+
+export const logErrors = () => (err, _, res, next) => {
+	if (res.headersSent) {
+		return next(err);
+	}
+	logger.error("%O", err);
+	res.sendStatus(500);
+};
