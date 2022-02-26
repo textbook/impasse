@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/textbook/impasse#readme",
   "devDependencies": {
-    "@babel/cli": "^7.17.0",
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.4",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/node": "^7.16.8",
