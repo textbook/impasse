@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import PropTypes from "prop-types";
 
 export default function Input({ error, label, name, onChange, value }) {
@@ -15,7 +16,7 @@ export default function Input({ error, label, name, onChange, value }) {
 				<div className="field">
 					<div className="control">
 						<input
-							className={`${error ? "is-danger " : ""}input`}
+							className={clsx("input", error && "is-danger")}
 							id={id}
 							name={name}
 							onChange={onChange}

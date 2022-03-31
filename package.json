@@ -61,6 +61,7 @@
     "axios": "^0.26.1",
     "babel-loader": "^8.2.4",
     "bulma": "^0.9.3",
+    "clsx": "^1.1.1",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",

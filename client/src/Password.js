@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import PropTypes from "prop-types";
 
 export default function Password(props) {
@@ -12,7 +13,7 @@ export default function Password(props) {
 			<div className="field-body">
 				<div className="field has-addons">
 					<div
-						className={`control is-expanded${loading ? " is-loading" : ""}`}
+						className={clsx("control", "is-expanded", loading && "is-loading")}
 						data-testid="password-wrapper"
 					>
 						<input
