@@ -78,7 +78,7 @@
     "html-webpack-plugin": "^5.5.0",
     "html-webpack-tags-plugin": "^3.0.2",
     "jest": "^27.4.7",
-    "jest-junit": "^13.0.0",
+    "jest-junit": "^13.1.0",
     "msw": "^0.39.2",
     "nodemon": "^2.0.15",
     "prop-types": "^15.8.1",
