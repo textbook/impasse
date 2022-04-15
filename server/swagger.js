@@ -1,4 +1,5 @@
 import { Router } from "express";
+import path from "path";
 import { serve, setup } from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 
@@ -16,7 +17,7 @@ router.use("/", serve);
 
 router.get("/", setup(swaggerJSDoc({
 	apis: [
-		"./dist/password/controller.js",
+		path.join(__dirname, "../**/controller.js"),
 	],
 	swaggerDefinition: {
 		openapi: "3.0.0",
