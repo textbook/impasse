@@ -84,7 +84,7 @@
     "nodemon": "^2.0.15",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react-dom": "^18.1.0",
     "rimraf": "^3.0.0",
     "sass": "^1.50.0",
     "sass-loader": "^12.4.0",
