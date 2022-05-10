@@ -58,7 +58,7 @@
     "@testing-library/react": "^13.1.0",
     "@testing-library/user-event": "^13.5.0",
     "axe-core": "^4.4.1",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "babel-loader": "^8.2.4",
     "bulma": "^0.9.3",
     "clsx": "^1.1.1",
