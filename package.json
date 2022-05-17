@@ -99,7 +99,7 @@
   "dependencies": {
     "@babel/runtime": "^7.17.9",
     "express": "^4.17.3",
-    "helmet": "^5.0.2",
+    "helmet": "^5.1.0",
     "hibp": "^11.0.0",
     "morgan": "^1.9.1",
     "swagger-jsdoc": "^6.1.0",
