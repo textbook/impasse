@@ -108,7 +108,7 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": "16.15.0",
-    "npm": "8.5.5"
+    "node": "16.15.1",
+    "npm": "8.11.0"
   }
 }
