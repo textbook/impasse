@@ -66,7 +66,7 @@ describe("App", () => {
 			getPassword.mockClear();
 			getPassword.mockReturnValue(UNRESOLVED);
 
-			userEvent.click(refreshButton());
+			await userEvent.click(refreshButton());
 
 			expect(getPassword).toHaveBeenCalledWith({ digits: 2, min: 8, max: 10 });
 		});
@@ -74,7 +74,7 @@ describe("App", () => {
 		it("returns to the loading state when the config changes", async () => {
 			getPassword.mockReturnValue(UNRESOLVED);
 
-			userEvent.type(minLengthInput(), "7");
+			await userEvent.type(minLengthInput(), "7");
 
 			expect(screen.getByTestId("password-wrapper")).toHaveClass("is-loading");
 		});
@@ -125,7 +125,7 @@ describe("App", () => {
 			const newPassword = "yay!";
 			getPassword.mockResolvedValue({ password: newPassword });
 
-			userEvent.click(refreshButton());
+			await userEvent.click(refreshButton());
 
 			await waitFor(() => {
 				expect(passwordInput()).toHaveValue(newPassword);
@@ -143,21 +143,21 @@ describe("App", () => {
 			expect(maxLengthInput()).toHaveValue(10);
 		});
 
-		it("updates in response to config changes", () => {
+		it("updates in response to config changes", async () => {
 			getPassword.mockReturnValue(UNRESOLVED);
 			render(<App />);
 
-			userEvent.type(minLengthInput(), "1");
+			await userEvent.type(minLengthInput(), "1");
 
 			expect(minLengthInput()).toHaveValue(81);
 		});
 
-		it("makes a request in response to config changes", () => {
+		it("makes a request in response to config changes", async () => {
 			getPassword.mockReturnValue(UNRESOLVED);
 			render(<App />);
 			getPassword.mockClear();
 
-			userEvent.type(digitsInput(), "1");
+			await userEvent.type(digitsInput(), "1");
 
 			expect(getPassword).toHaveBeenCalledWith({ digits: 21, min: 8, max: 10 });
 		});

@@ -14,34 +14,34 @@ describe("Config component", () => {
 		expect(digitsInput()).toHaveValue(config.digits);
 	});
 
-	it("emits updated config on minLength change", () => {
+	it("emits updated config on minLength change", async () => {
 		const callback = jest.fn();
 		render(<Config config={config} onChange={callback} />);
 
-		userEvent.clear(minLengthInput());
-		userEvent.type(minLengthInput(), "7");
+		await userEvent.clear(minLengthInput());
+		await userEvent.type(minLengthInput(), "1");
 
-		expect(callback).toHaveBeenCalledWith({ ...config, min: 7 });
+		expect(callback).toHaveBeenCalledWith({ ...config, min: 81 });
 	});
 
-	it("emits updated config on maxLength change", () => {
+	it("emits updated config on maxLength change", async () => {
 		const callback = jest.fn();
 		render(<Config config={config} onChange={callback} />);
 
-		userEvent.clear(maxLengthInput());
-		userEvent.type(maxLengthInput(), "11");
+		await userEvent.clear(maxLengthInput());
+		await userEvent.type(maxLengthInput(), "2");
 
-		expect(callback).toHaveBeenCalledWith({ ...config, max: 11 });
+		expect(callback).toHaveBeenCalledWith({ ...config, max: 102 });
 	});
 
-	it("emits updated config on digits change", () => {
+	it("emits updated config on digits change", async () => {
 		const callback = jest.fn();
 		render(<Config config={config} onChange={callback} />);
 
-		userEvent.clear(digitsInput());
-		userEvent.type(digitsInput(), "11");
+		await userEvent.clear(digitsInput());
+		await userEvent.type(digitsInput(), "3");
 
-		expect(callback).toHaveBeenCalledWith({ ...config, digits: 11 });
+		expect(callback).toHaveBeenCalledWith({ ...config, digits: 23 });
 	});
 
 	const digitsInput = () => screen.getByRole("spinbutton", { name: "Number of digits" });
