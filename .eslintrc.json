@@ -8,9 +8,20 @@
     "plugin:jest/recommended"
   ],
   "parser": "@babel/eslint-parser",
+  "root": true,
   "rules": {
     "max-len": ["error", 120],
-    "jest/expect-expect": "off",
+    "jest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": [
+          "cy.**.should",
+          "cy.checkA11y",
+          "expect",
+          "request.**.expect"
+        ]
+      }
+    ],
     "jest/no-focused-tests": "error",
     "jest/no-disabled-tests": "error"
   }

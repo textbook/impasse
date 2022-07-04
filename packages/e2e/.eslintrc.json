@@ -2,7 +2,7 @@
   "env": {
     "cypress/globals": true
   },
-  "extends": ["../.eslintrc.json"],
+  "extends": ["../../.eslintrc.json"],
   "overrides": [
     {
       "files": ["integration/*.test.js"],
@@ -12,6 +12,9 @@
     }
   ],
   "parserOptions": {
+    "babelOptions": {
+      "configFile": "./.babelrc"
+    },
     "ecmaVersion": 6
   },
   "plugins": ["cypress"]

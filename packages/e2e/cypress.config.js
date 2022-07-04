@@ -16,11 +16,11 @@ module.exports = defineConfig({
 				},
 			});
 		},
-		specPattern: "e2e/integration/**/*.test.js",
-		supportFile: "e2e/support/index.js",
+		specPattern: "integration/**/*.test.js",
+		supportFile: "support/index.js",
 	},
-	fixturesFolder: "e2e/fixtures",
-	screenshotsFolder: "e2e/screenshots",
+	fixturesFolder: "fixtures",
+	screenshotsFolder: "screenshots",
 	video: false,
-	videosFolder: "e2e/videos",
+	videosFolder: "videos",
 });

@@ -1,5 +1,6 @@
+import path from "node:path";
+
 import express from "express";
-import path from "path";
 
 import config from "./config";
 import api from "./password/controller";

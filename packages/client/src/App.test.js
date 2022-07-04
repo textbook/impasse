@@ -33,6 +33,7 @@ describe("App", () => {
 		expect(screen.queryByText("0")).not.toBeInTheDocument();
 	});
 
+	// eslint-disable-next-line jest/expect-expect
 	it("cleans up on unmount", async () => {
 		getPassword.mockResolvedValue({ password: "too late!" });
 		const { unmount } = render(<App />);

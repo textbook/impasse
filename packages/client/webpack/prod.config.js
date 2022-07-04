@@ -1,12 +1,13 @@
+const path = require("node:path");
+
 const HtmlWebpackTagsPlugin = require("html-webpack-tags-plugin");
-const path = require("path");
 const { merge } = require("webpack-merge");
 
 const common = require("./common.config");
-const { devDependencies } = require("../../package.json");
+const { dependencies } = require("../package.json");
 
 const cdn = (packageName) =>
-	`https://unpkg.com/${packageName}@${devDependencies[packageName]}/umd/${packageName}.production.min.js`;
+	`https://unpkg.com/${packageName}@${dependencies[packageName]}/umd/${packageName}.production.min.js`;
 
 module.exports = merge(common, {
 	devtool: "source-map",
@@ -25,7 +26,7 @@ module.exports = merge(common, {
 	},
 	output: {
 		filename: "[name].[contenthash].js",
-		path: path.resolve(__dirname, "../../dist/static"),
+		path: path.resolve(__dirname, "../../../dist/static"),
 	},
 	plugins: [
 		new HtmlWebpackTagsPlugin({

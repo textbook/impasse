@@ -1,0 +1,10 @@
+{
+  "parserOptions": {
+    "babelOptions": {
+      "configFile": "./.babelrc"
+    }
+  },
+  "rules": {
+    "no-console": "error"
+  }
+}

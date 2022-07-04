@@ -1,0 +1,38 @@
+{
+  "name": "@impasse/server",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "build": "babel src --out-dir ../../dist --ignore \"**/*.test.js\"",
+    "dev": "cross-env LOG_LEVEL=debug PORT=3100 nodemon --exitcrash --inspect --delay 500ms --watch server --exec babel-node src/server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textbook/impasse.git"
+  },
+  "keywords": [],
+  "author": "Jonathan Sharpe <mail@jonrshar.pe>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/textbook/impasse/issues"
+  },
+  "homepage": "https://github.com/textbook/impasse#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.18.6",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "hibp": "^11.1.0",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0",
+    "winston": "^3.8.1",
+    "word-list": "^3.1.0"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.18.6",
+    "nodemon": "^2.0.18",
+    "supertest": "^6.2.4"
+  }
+}

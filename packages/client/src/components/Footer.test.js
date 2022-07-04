@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 
 import Footer from "./Footer";
 
-jest.mock("../../../package.json", () => ({
+jest.mock("../../../../package.json", () => ({
 	author: {
 		name: "Jane Doe",
 		email: "jane.doe@morgue.org",

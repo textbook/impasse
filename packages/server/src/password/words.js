@@ -1,5 +1,6 @@
-import { readFile } from "fs";
-import { promisify } from "util";
+import { readFile } from "node:fs";
+import { promisify } from "node:util";
+
 import location from "word-list";
 
 let wordPromise;

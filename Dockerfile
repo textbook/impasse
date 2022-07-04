@@ -1,39 +1,50 @@
 ARG NODE_RELEASE
 ARG ALPINE_RELEASE=3.16
 
-FROM node:${NODE_RELEASE}-alpine${ALPINE_RELEASE} AS build
+FROM node:${NODE_RELEASE}-alpine${ALPINE_RELEASE} AS server
 
-ARG NODE_RELEASE
-
-ENV CYPRESS_INSTALL_BINARY=0
-
-WORKDIR /home/node
 USER node
+WORKDIR /home/node
 
 COPY ./package*.json ./
+COPY ./packages/server/package.json ./packages/server/
 
-RUN npm ci
+RUN npm --workspace packages/server --include-workspace-root ci
 
 COPY ./.babelrc .
-COPY ./client ./client
-COPY ./server ./server
+COPY ./packages/server/ ./packages/server/
 
-RUN npm run build
+RUN npm run build:server
+
+FROM node:${NODE_RELEASE}-alpine${ALPINE_RELEASE} AS client
+
+USER node
+WORKDIR /home/node
+
+COPY ./package*.json ./
+COPY ./packages/client/package.json ./packages/client/
+
+RUN npm --workspace packages/client --include-workspace-root ci
+
+COPY --from=server --chown=node /home/node/dist ./dist/
+COPY ./.babelrc .
+COPY ./packages/client/ ./packages/client/
+
+RUN npm run build:client
 
 FROM node:${NODE_RELEASE}-alpine${ALPINE_RELEASE}
 
-ARG NODE_RELEASE
-
 LABEL maintainer="Jonathan Sharpe"
 
-WORKDIR /home/node
 USER node
+WORKDIR /home/node
 
-COPY --from=build /home/node/package*.json ./
+COPY ./package*.json ./
+COPY ./packages/server/package.json ./packages/server/
 
-RUN npm ci --only=prod
+RUN npm ci --workspace packages/server --omit dev
 
-COPY --from=build /home/node/dist ./dist
+COPY --from=client /home/node/dist ./dist
 
 ENV NODE_ENV=production
 ENV PORT=80

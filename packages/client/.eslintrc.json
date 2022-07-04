@@ -2,8 +2,13 @@
   "env": {
     "browser": true
   },
+  "parserOptions": {
+    "babelOptions": {
+      "configFile": "./packages/client/.babelrc"
+    }
+  },
   "extends": [
-    "../.eslintrc.json",
+    "../../.eslintrc.json",
     "plugin:jsx-a11y/strict",
     "plugin:react/recommended"
   ],
