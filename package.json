@@ -17,16 +17,14 @@
     "docker": "docker run -e NODE_ENV=development -p 3000:80 textbook/impasse",
     "e2e": "concurrently -k -s first -n \"app,e2e\" \"npm run serve\" \"npm run e2e:safe\"",
     "e2e:docker": "concurrently -k -s first -n \"app,e2e\" \"npm run docker\" \"npm run e2e:safe\"",
-    "e2e:run": "npm --workspace packages/e2e run test",
+    "e2e:run": "npm --workspace packages/e2e run e2e",
     "e2e:safe": "wait-on -l http-get://localhost:3000 && npm run e2e:run",
     "lint": "eslint .",
     "preserve": "npm run build",
     "serve": "npm start",
     "ship": "npm run lint && npm run test && npm run e2e",
     "start": "node dist/server.js",
-    "test": "npm run test:client && npm run test:server",
-    "test:client": "npm --workspace packages/client run test",
-    "test:server": "npm --workspace packages/client run test"
+    "test": "npm --workspaces --if-present run test"
   },
   "repository": {
     "type": "git",
