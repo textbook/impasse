@@ -1,5 +1,5 @@
 {
   "name": "Impasse",
   "description": "Generate moderately secure passwords",
-  "stack": "heroku-20"
+  "stack": "heroku-22"
 }

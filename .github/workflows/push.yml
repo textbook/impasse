@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
     - run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
@@ -20,7 +20,7 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - run: npm run e2e:docker
   deploy-docker:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     steps:
@@ -58,7 +58,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         repository: textbook/impasse
   deploy-heroku:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     steps:
