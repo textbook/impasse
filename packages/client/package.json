@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/textbook/impasse#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "bulma": "^0.9.4",
     "clsx": "^1.2.0",
     "prop-types": "^15.8.1",
