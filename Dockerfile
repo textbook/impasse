@@ -15,6 +15,7 @@ COPY ./.babelrc .
 COPY ./packages/server/ ./packages/server/
 
 RUN npm run build:server
+RUN npm run postbuild
 
 FROM node:${NODE_RELEASE}-alpine${ALPINE_RELEASE} AS client
 
