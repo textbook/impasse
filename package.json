@@ -1,6 +1,6 @@
 {
   "name": "impasse",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Generate moderately secure passwords",
   "private": true,
   "scripts": {
