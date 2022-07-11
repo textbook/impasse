@@ -48,7 +48,7 @@
     "@babel/plugin-transform-runtime": "^7.18.6",
     "@babel/preset-env": "^7.18.6",
     "@codeyourfuture/eslint-config-standard": "^3.0.3",
-    "@textbook/build-info": "^0.2.2",
+    "@textbook/build-info": "^0.2.3",
     "concurrently": "^7.2.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
