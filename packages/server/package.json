@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/textbook/impasse#readme",
   "dependencies": {
-    "@babel/runtime": "^7.18.6",
+    "@babel/runtime": "^7.18.9",
     "express": "^4.18.1",
     "helmet": "^5.1.0",
     "hibp": "^11.1.0",
