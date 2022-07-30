@@ -1,6 +1,6 @@
 {
   "name": "@impasse/server",
-  "version": "0.1.0",
+  "version": "0.11.6",
   "description": "",
   "main": "src/server.js",
   "scripts": {
