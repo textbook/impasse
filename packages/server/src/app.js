@@ -5,7 +5,7 @@ import express from "express";
 import config from "./config";
 import api from "./password/controller";
 import { configuredHelmet, configuredMorgan, httpsOnly, logErrors } from "./middleware";
-import swagger from "./swagger";
+import docs from "./docs";
 
 const app = express();
 
@@ -18,7 +18,7 @@ if (config.production) {
 }
 
 app.use("/api", api);
-app.use("/docs", swagger);
+app.use("/docs", docs);
 app.use(express.static(path.join(__dirname, "static")));
 
 app.use(logErrors());

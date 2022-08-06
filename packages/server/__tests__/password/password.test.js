@@ -1,4 +1,4 @@
-import password from "./password";
+import password from "../../src/password/password";
 
 describe("password", () => {
 	const words = ["alphabet", "barbaric", "catamaran"];

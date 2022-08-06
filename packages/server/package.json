@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "build": "babel src --out-dir ../../dist --ignore \"**/*.test.js\"",
-    "dev": "cross-env LOG_LEVEL=debug PORT=3100 nodemon --exitcrash --inspect --delay 500ms --watch server --exec babel-node src/server.js",
+    "build": "babel src --copy-files --out-dir ../../dist",
+    "dev": "cross-env LOG_LEVEL=debug PORT=3100 nodemon --inspect src/server.js",
     "test": "jest"
   },
   "repository": {

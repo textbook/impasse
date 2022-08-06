@@ -2,7 +2,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import request from "supertest";
 
-import app from "./app";
+import app from "../src/app";
 
 const server = setupServer(
 	rest.get("https://api.pwnedpasswords.com/range/:range", (_, res, ctx) => {
@@ -84,13 +84,13 @@ describe("password API", () => {
 
 	it("returns 500 on unexpected errors", async () => {
 		jest.resetModules();
-		jest.doMock("./password/password", () => ({
+		jest.doMock("../src/password/password", () => ({
 			__esModule: true,
 			default: () => {
 				throw new Error("oh no!");
 			},
 		}));
-		const module = await import("./app");
+		const module = await import("../src/app");
 
 		await request(module.default).get("/api").expect(500);
 	});
@@ -101,8 +101,8 @@ describe("password API", () => {
 			return res(ctx.status(200), ctx.text("C6008F9CAB4083784CBD1874F76618D2A97:13"));
 		}));
 		jest.resetModules();
-		jest.doMock("./password/password", () => ({ __esModule: true, default: () => password }));
-		const module = await import("./app");
+		jest.doMock("../src/password/password", () => ({ __esModule: true, default: () => password }));
+		const module = await import("../src/app");
 
 		await request(module.default)
 			.get("/api")

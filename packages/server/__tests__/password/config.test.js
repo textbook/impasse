@@ -1,4 +1,4 @@
-import parseConfig from "./config";
+import parseConfig from "../../src/password/config";
 
 describe("parseConfig", () => {
 	it("returns null errors for valid config", () => {

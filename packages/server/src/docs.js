@@ -18,7 +18,7 @@ router.use("/", serve);
 
 router.get("/", setup(swaggerJSDoc({
 	apis: [
-		path.join(__dirname, "../**/controller.js"),
+		path.join(__dirname, "./**/docs.yml"),
 	],
 	swaggerDefinition: {
 		openapi: "3.0.0",

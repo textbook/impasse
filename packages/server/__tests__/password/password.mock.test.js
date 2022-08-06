@@ -1,7 +1,7 @@
-import password from "./password";
-import { randRange, sample, choice } from "./random";
+import password from "../../src/password/password";
+import { randRange, sample, choice } from "../../src/password/random";
 
-jest.mock("./random");
+jest.mock("../../src/password/random");
 
 describe("password", () => {
 	it("pads the number with zeroes", () => {
