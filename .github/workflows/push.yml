@@ -20,6 +20,11 @@ jobs:
     - uses: docker/setup-buildx-action@v2
       with:
         install: true
+    - uses: docker/build-push-action@v3
+      with:
+        load: true
+        push: false
+        tags: textbook/impasse
     - run: npm run e2e:docker
   deploy-docker:
     runs-on: ubuntu-22.04
