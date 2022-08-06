@@ -3,8 +3,8 @@ import path from "node:path";
 import express from "express";
 
 import config from "./config";
-import api from "./password/controller";
 import { configuredHelmet, configuredMorgan, httpsOnly, logErrors } from "./middleware";
+import api from "./password";
 import docs from "./docs";
 
 const app = express();
