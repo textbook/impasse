@@ -16,7 +16,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "html-webpack-tags-plugin": "^3.0.2",
-    "jest-environment-jsdom": "^29.0.3",
+    "jest-environment-jsdom": "^29.1.2",
     "sass": "^1.54.8",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
