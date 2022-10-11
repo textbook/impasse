@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import "@testing-library/jest-dom/extend-expect";
+import "whatwg-fetch";
 
 const originalError = console.error;
 

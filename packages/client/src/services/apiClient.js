@@ -1,8 +1,8 @@
-import axios from "axios";
-
-export const get = (url, params) => axios
-	.get(url, { params })
-	.then((res) => res.data)
-	.catch((error) => {
-		throw error.response.data;
-	});
+export const get = async (url, params) => {
+	const response = await fetch(`${url}?${new URLSearchParams(params)}`);
+	const body = await response.json();
+	if (response.ok) {
+		return body;
+	}
+	throw body;
+};
