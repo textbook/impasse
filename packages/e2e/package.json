@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "devDependencies": {
-    "@testing-library/cypress": "^8.0.3",
-    "axe-core": "^4.5.1",
-    "cypress": "^11.0.1",
+    "@testing-library/cypress": "^8.0.7",
+    "axe-core": "^4.5.2",
+    "cypress": "^10.11.0",
     "cypress-axe": "^1.0.0",
     "eslint-plugin-cypress": "^2.12.1"
   },
