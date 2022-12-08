@@ -33,6 +33,6 @@
   "devDependencies": {
     "@babel/node": "^7.20.5",
     "nodemon": "^2.0.20",
-    "supertest": "^6.3.2"
+    "supertest": "^6.3.3"
   }
 }
