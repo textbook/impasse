@@ -7,7 +7,7 @@
     "@testing-library/cypress": "^8.0.7",
     "axe-core": "^4.5.2",
     "cypress": "^11.2.0",
-    "cypress-axe": "^1.1.0",
+    "cypress-axe": "^1.2.0",
     "eslint-plugin-cypress": "^2.12.1"
   },
   "scripts": {
