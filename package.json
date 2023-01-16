@@ -60,8 +60,8 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": "18.12.1",
-    "npm": "8.19.2"
+    "node": "18.13.0",
+    "npm": "8.19.3"
   },
   "workspaces": [
     "packages/client",
