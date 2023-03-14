@@ -15,10 +15,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
+    - run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvmrc
     - uses: actions/setup-node@v3
-      id: setup-node
       with:
-        node-version-file: .nvmrc
+        node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
         cache: npm
     - run: npm ci
     - run: npm run lint
@@ -30,12 +31,10 @@ jobs:
     - uses: docker/build-push-action@v3
       with:
         build-args: |
-          NODE_RELEASE=${NODE_VERSION#v}
+          NODE_RELEASE=${{ steps.nvmrc.outputs.NODE_VERSION }}
         load: true
         push: false
         tags: textbook/impasse
-      env:
-        NODE_VERSION: ${{ steps.setup-node.outputs.node-version }}
     - run: npm run e2e:docker
   deploy-docker:
     runs-on: ubuntu-22.04
