@@ -46,7 +46,7 @@
     "@babel/core": "^7.21.3",
     "@babel/eslint-parser": "^7.21.3",
     "@babel/plugin-transform-runtime": "^7.21.0",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-env": "^7.21.4",
     "@codeyourfuture/eslint-config-standard": "^3.0.3",
     "@textbook/build-info": "^0.4.1",
     "concurrently": "^7.6.0",
