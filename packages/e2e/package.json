@@ -6,7 +6,7 @@
   "devDependencies": {
     "@testing-library/cypress": "^9.0.0",
     "axe-core": "^4.6.3",
-    "cypress": "^12.9.0",
+    "cypress": "^12.10.0",
     "cypress-axe": "^1.4.0",
     "eslint-plugin-cypress": "^2.13.2"
   },
