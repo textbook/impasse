@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "npm run cleanup",
     "build": "npm run build:server && npm run build:client",
-    "postbuild": "buildinfo dist/static/build-info.txt",
+    "postbuild": "buildinfo --output dist/static/build-info.txt",
     "build:client": "npm --workspace packages/client run build",
     "build:server": "npm --workspace packages/server run build",
     "cleanup": "rimraf ./dist/*",
@@ -48,7 +48,7 @@
     "@babel/plugin-transform-runtime": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
     "@codeyourfuture/eslint-config-standard": "^3.0.3",
-    "@textbook/build-info": "^0.4.5",
+    "@textbook/build-info": "^0.5.0",
     "concurrently": "^8.0.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.39.0",
