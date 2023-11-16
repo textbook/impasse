@@ -5,10 +5,10 @@
   "main": "index.js",
   "devDependencies": {
     "@testing-library/cypress": "^9.0.0",
-    "axe-core": "^4.7.0",
-    "cypress": "^12.10.0",
-    "cypress-axe": "^1.4.0",
-    "eslint-plugin-cypress": "^2.13.2"
+    "axe-core": "^4.8.2",
+    "cypress": "^12.17.4",
+    "cypress-axe": "^1.5.0",
+    "eslint-plugin-cypress": "^2.15.1"
   },
   "scripts": {
     "e2e": "cypress run"
