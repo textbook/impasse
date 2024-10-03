@@ -9,7 +9,7 @@ export const configuredHelmet = () => helmet({
 			defaultSrc: ["'self'"],
 			imgSrc: ["'self'", "data:"],
 			objectSrc: ["'none'"],
-			scriptSrc: ["'self'", "unpkg.com", "polyfill.io"],
+			scriptSrc: ["'self'", "unpkg.com"],
 			styleSrc: ["'self'", "https: 'unsafe-inline'"],
 			upgradeInsecureRequests: [],
 		},
