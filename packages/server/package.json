@@ -28,7 +28,7 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.15.0",
-    "word-list": "^3.1.0"
+    "word-list": "^4.0.0"
   },
   "devDependencies": {
     "@babel/node": "^7.25.7",
