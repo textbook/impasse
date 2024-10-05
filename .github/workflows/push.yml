@@ -23,7 +23,7 @@ jobs:
     - uses: docker/setup-buildx-action@v3
       with:
         install: true
-    - uses: docker/build-push-action@v5
+    - uses: docker/build-push-action@v6
       with:
         build-args: |
           NODE_RELEASE=${{ steps.nodejs.outputs.node-version }}
@@ -53,7 +53,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    - uses: docker/build-push-action@v5
+    - uses: docker/build-push-action@v6
       with:
         build-args: |
           NODE_RELEASE=${{ steps.nodejs.outputs.node-version }}
