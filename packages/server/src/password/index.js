@@ -1,3 +1,3 @@
-export { default } from "./controller";
+export { default } from "./controller.js";
 
-export * as passwordService from "./service";
+export * as passwordService from "./service.js";

@@ -1,16 +1,20 @@
+import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { Router } from "express";
 import { serve, setup } from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 
-import {
-	author as contact,
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const {
+	author: contact,
 	description,
 	license,
-	name as title,
+	name: title,
 	version,
-} from "../package.json";
+} = JSON.parse(await readFile(path.join(__dirname, "..", "package.json")));
 
 const router = Router();
 

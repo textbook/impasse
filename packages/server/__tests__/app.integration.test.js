@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import request from "supertest";
@@ -84,8 +85,7 @@ describe("password API", () => {
 
 	it("returns 500 on unexpected errors", async () => {
 		jest.resetModules();
-		jest.doMock("../src/password/password", () => ({
-			__esModule: true,
+		jest.unstable_mockModule("../src/password/password", () => ({
 			default: () => {
 				throw new Error("oh no!");
 			},
@@ -101,7 +101,7 @@ describe("password API", () => {
 			return res(ctx.status(200), ctx.text("C6008F9CAB4083784CBD1874F76618D2A97:13"));
 		}));
 		jest.resetModules();
-		jest.doMock("../src/password/password", () => ({ __esModule: true, default: () => password }));
+		jest.unstable_mockModule("../src/password/password", () => ({ default: () => password }));
 		const module = await import("../src/app");
 
 		await request(module.default)

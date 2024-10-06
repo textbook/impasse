@@ -1,8 +1,8 @@
 import http from "node:http";
 
-import app from "./app";
-import config from "./config";
-import logger from "./logger";
+import app from "./app.js";
+import config from "./config.js";
+import logger from "./logger.js";
 
 const server = http.createServer(app);
 

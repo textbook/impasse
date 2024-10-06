@@ -1,7 +1,7 @@
 import { pwnedPassword } from "hibp";
 
-import createPassword from "./password";
-import getWords from "./words";
+import createPassword from "./password.js";
+import getWords from "./words.js";
 
 export class TooFewWords extends Error {
 	constructor(count) {

@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import parseConfig from "./config";
-import { getPassword, TooFewWords } from "./service";
+import parseConfig from "./config.js";
+import { getPassword, TooFewWords } from "./service.js";
 
 const router = Router();
 

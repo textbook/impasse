@@ -3,10 +3,11 @@
   "version": "0.13.1",
   "description": "",
   "main": "src/server.js",
+  "type": "module",
   "scripts": {
     "build": "babel src --copy-files --out-dir ../../dist",
     "dev": "cross-env LOG_LEVEL=debug PORT=3100 nodemon --inspect src/server.js",
-    "test": "jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",

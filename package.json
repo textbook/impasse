@@ -3,6 +3,7 @@
   "version": "0.13.1",
   "description": "Generate moderately secure passwords",
   "private": true,
+  "type": "module",
   "scripts": {
     "prebuild": "npm run cleanup",
     "build": "npm run build:server && npm run build:client",

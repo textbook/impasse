@@ -1,11 +1,14 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import express from "express";
 
-import config from "./config";
-import { configuredHelmet, configuredMorgan, httpsOnly, logErrors } from "./middleware";
-import api from "./password";
-import docs from "./docs";
+import config from "./config.js";
+import { configuredHelmet, configuredMorgan, httpsOnly, logErrors } from "./middleware.js";
+import api from "./password/index.js";
+import docs from "./docs.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 

@@ -1,4 +1,4 @@
-import { choice, randRange, sample } from "./random";
+import { choice, randRange, sample } from "./random.js";
 
 const SYMBOLS = "!@#$%^&*";
 
