@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { App } from "./App";
 import { getPassword } from "./services/passwordService";
 
-jest.mock("./services/passwordService");
+vi.mock("./services/passwordService");
 
 const UNRESOLVED = new Promise(() => {});
 

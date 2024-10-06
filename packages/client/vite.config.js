@@ -1,5 +1,5 @@
 import react from "@vitejs/plugin-react-swc";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
 	build: {
@@ -12,5 +12,12 @@ export default defineConfig({
 		proxy: {
 			"/api": "http://localhost:3100",
 		},
+	},
+	test: {
+		environment: "jsdom",
+		globals: true,
+		setupFiles: [
+			"./src/setupTests.js",
+		],
 	},
 });

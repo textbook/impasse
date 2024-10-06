@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import "@testing-library/jest-dom";
-import "whatwg-fetch";
 
 const originalError = console.error;
 

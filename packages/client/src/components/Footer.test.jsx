@@ -2,14 +2,14 @@ import { render, screen } from "@testing-library/react";
 
 import Footer from "./Footer";
 
-jest.mock("../../../../package.json", () => ({
+vi.mock("../../../../package.json", () => ({ default: {
 	author: {
 		name: "Jane Doe",
 		email: "jane.doe@morgue.org",
 		url: "https://morgue.org",
 	},
 	version: "1.2.3",
-}));
+} }));
 
 describe("Footer component", () => {
 	it("renders author information", () => {

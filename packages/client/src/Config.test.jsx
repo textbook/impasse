@@ -15,7 +15,7 @@ describe("Config component", () => {
 	});
 
 	it("emits updated config on minLength change", async () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		render(<Config config={config} onChange={callback} />);
 
 		await userEvent.clear(minLengthInput());
@@ -25,7 +25,7 @@ describe("Config component", () => {
 	});
 
 	it("emits updated config on maxLength change", async () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		render(<Config config={config} onChange={callback} />);
 
 		await userEvent.clear(maxLengthInput());
@@ -35,7 +35,7 @@ describe("Config component", () => {
 	});
 
 	it("emits updated config on digits change", async () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		render(<Config config={config} onChange={callback} />);
 
 		await userEvent.clear(digitsInput());

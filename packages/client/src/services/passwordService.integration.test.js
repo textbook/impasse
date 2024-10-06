@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 
 import { getPassword } from "./passwordService";
@@ -7,9 +7,9 @@ describe("service integration", () => {
 	const password = "opensesame";
 
 	const server = setupServer(
-		rest.get("/api", (req, res, ctx) => {
-			return res(ctx.status(200), ctx.json({ password }));
-		})
+		http.get("/api", () => {
+			return HttpResponse.json({ password });
+		}),
 	);
 
 	beforeAll(() => server.listen());
@@ -25,10 +25,11 @@ describe("service integration", () => {
 	});
 
 	it("makes a request with query parameters", async () => {
-		server.use(rest.get("/api", (req, res, ctx) => {
-			expect(req.url.searchParams.get("min")).toBe("7");
-			expect(req.url.searchParams.get("max")).toBe("7");
-			return res(ctx.status(200), ctx.json({ password }));
+		server.use(http.get("/api", ({ request }) => {
+			const { searchParams } = new URL(request.url);
+			expect(searchParams.get("min")).toBe("7");
+			expect(searchParams.get("max")).toBe("7");
+			return HttpResponse.json({ password });
 		}));
 
 		const result = await getPassword({ min: 7, max: 7 });
@@ -41,8 +42,8 @@ describe("service integration", () => {
 			{ description: "pranged it", fields: ["foo"] },
 			{ description: "also an issue", fields: ["bar"] },
 		];
-		server.use(rest.get("/api", (req, res, ctx) => {
-			return res(ctx.status(400), ctx.json({ errors }));
+		server.use(http.get("/api", () => {
+			return HttpResponse.json({ errors }, { status: 400 });
 		}));
 
 		await expect(getPassword()).rejects.toMatchObject({
@@ -52,8 +53,8 @@ describe("service integration", () => {
 	});
 
 	it("tolerates 5xx errors", async () => {
-		server.use(rest.get("/api", (req, res, ctx) => {
-			return res(ctx.status(500));
+		server.use(http.get("/api", () => {
+			return new HttpResponse(null, { status: 500 });
 		}));
 
 		await expect(getPassword()).rejects.toEqual({ descriptions: ["Something went wrong"], fields: [] });
