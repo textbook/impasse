@@ -1,5 +1,6 @@
-import vitest from "@vitest/eslint-plugin";
 import cyf from "@codeyourfuture/eslint-config-standard";
+import { fixupPluginRules } from "@eslint/compat";
+import vitest from "@vitest/eslint-plugin";
 import cypress from "eslint-plugin-cypress/flat";
 import jest from "eslint-plugin-jest";
 import jsxA11y from "eslint-plugin-jsx-a11y";
@@ -19,7 +20,7 @@ export default [
 		plugins: {
 			"jsx-a11y": jsxA11y,
 			react,
-			"react-hooks": reactHooks,
+			"react-hooks": fixupPluginRules(reactHooks),
 		},
 		rules: {
 			...react.configs.flat.recommended.rules,
