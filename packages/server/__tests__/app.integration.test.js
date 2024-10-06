@@ -1,21 +1,21 @@
 import { jest } from "@jest/globals";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import request from "supertest";
 
 import app from "../src/app";
 
 const server = setupServer(
-	rest.get("https://api.pwnedpasswords.com/range/:range", (_, res, ctx) => {
-		return res(ctx.status(200), ctx.text(""));
+	http.get("https://api.pwnedpasswords.com/range/:range", () => {
+		return HttpResponse.text("");
 	}),
 );
 
 describe("password API", () => {
 	beforeAll(() => server.listen({
-		onUnhandledRequest: ({ method, url }) => {
-			if (!url.pathname.startsWith("/api")) {
-				throw new Error(`Unhandled ${method} request to ${url}`);
+		onUnhandledRequest: ({ url }, print) => {
+			if (!new URL(url).pathname.startsWith("/api")) {
+				print.error();
 			}
 		},
 	}));
@@ -97,8 +97,8 @@ describe("password API", () => {
 
 	it("exposes whether a password has been pwned", async () => {
 		const password = "password123";
-		server.use(rest.get("https://api.pwnedpasswords.com/range/CBFDA", (req, res, ctx) => {
-			return res(ctx.status(200), ctx.text("C6008F9CAB4083784CBD1874F76618D2A97:13"));
+		server.use(http.get("https://api.pwnedpasswords.com/range/CBFDA", () => {
+			return HttpResponse.text("C6008F9CAB4083784CBD1874F76618D2A97:13");
 		}));
 		jest.resetModules();
 		jest.unstable_mockModule("../src/password/password", () => ({ default: () => password }));
