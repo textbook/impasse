@@ -30,7 +30,6 @@ COPY ./packages/client/package.json ./packages/client/
 RUN npm --workspace packages/client --include-workspace-root ci
 
 COPY --from=server --chown=node /home/node/dist ./dist/
-COPY ./.babelrc .
 COPY ./packages/client/ ./packages/client/
 
 RUN npm run build:client
