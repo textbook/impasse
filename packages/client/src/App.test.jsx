@@ -33,7 +33,7 @@ describe("App", () => {
 		expect(screen.queryByText("0")).not.toBeInTheDocument();
 	});
 
-	// eslint-disable-next-line jest/expect-expect
+	// eslint-disable-next-line vitest/expect-expect
 	it("cleans up on unmount", async () => {
 		getPassword.mockResolvedValue({ password: "too late!" });
 		const { unmount } = render(<App />);
@@ -45,7 +45,6 @@ describe("App", () => {
 			getPassword.mockResolvedValue({ password: message, pwned: false, words: 117_583 });
 			render(<App />);
 			await waitFor(() => {
-				// eslint-disable-next-line jest/no-standalone-expect
 				expect(screen.getByTestId("password-wrapper")).not.toHaveClass("is-loading");
 			});
 		});
@@ -86,7 +85,6 @@ describe("App", () => {
 			getPassword.mockResolvedValue({ password: message, pwned: true });
 			render(<App />);
 			await waitFor(() => {
-				// eslint-disable-next-line jest/no-standalone-expect
 				expect(screen.getByTestId("password-wrapper")).not.toHaveClass("is-loading");
 			});
 
@@ -104,7 +102,6 @@ describe("App", () => {
 			getPassword.mockRejectedValue(error);
 			render(<App />);
 			await waitFor(() => {
-				// eslint-disable-next-line jest/no-standalone-expect
 				expect(screen.getByTestId("password-wrapper")).not.toHaveClass("is-loading");
 			});
 		});

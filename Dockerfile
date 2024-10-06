@@ -12,7 +12,6 @@ COPY ./packages/server/package.json ./packages/server/
 
 RUN npm --workspace packages/server --include-workspace-root ci
 
-COPY ./.babelrc .
 COPY ./packages/server/ ./packages/server/
 
 RUN npm run build:server
@@ -41,6 +40,7 @@ LABEL maintainer="Jonathan Sharpe"
 USER node
 WORKDIR /home/node
 
+RUN mkdir -p ./packages/server
 COPY ./package*.json ./
 COPY ./packages/server/package.json ./packages/server/
 
