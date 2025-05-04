@@ -8,9 +8,9 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
-/** @type {import("eslint").Linter.FlatConfig} */
+/** @type {import("eslint").Linter.Config[]} */
 export default [
-	cyf,
+	...cyf.configs.standard,
 	{
 		files: ["packages/client/**/*.js{,x}"],
 		languageOptions: {
@@ -84,7 +84,7 @@ export default [
 			"jest/expect-expect": [
 				"error",
 				{
-					"assertFunctionNames": [
+					assertFunctionNames: [
 						"expect",
 						"request.**.expect",
 					],

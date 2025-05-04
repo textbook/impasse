@@ -9,7 +9,15 @@ export default function Footer() {
 		<footer className="footer">
 			<div className="content has-text-centered">
 				<p>
-					<span>Version {version}</span>, developed by <a href={url}>{name}</a>.
+					<span>
+						Version
+						{" "}
+						{version}
+					</span>
+					, developed by
+					{" "}
+					<a href={url}>{name}</a>
+					.
 					<a className="bulma-logo" href="https://bulma.io">
 						<img src={madeWithBulma} alt="Made with Bulma" />
 					</a>

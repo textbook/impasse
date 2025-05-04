@@ -23,14 +23,45 @@ export default function Strength({ config: { digits, max, min }, words }) {
 	return (
 		<div className="message is-info">
 			<div className="message-body">
-				These passwords are only <em>moderately</em> secure.
-				{" "}Given a character set of {CHARACTERS} characters and a password length of {length}
-				{" "}you would calculate <span>a naive entropy of {naive}</span>.
-				{" "}However, the structure of these passwords (word, digit(s), word, symbol) means that the
-				{" "}<span>
-					actual entropy is {actual.toFixed(2)}
-					{" "}(equivalent to {equivalent} character{equivalent === 1 ? "" : "s"})
-				</span>.
+				These passwords are only
+				{" "}
+				<em>moderately</em>
+				{" "}
+				secure.
+				{" "}
+				Given a character set of
+				{" "}
+				{CHARACTERS}
+				{" "}
+				characters and a password length of
+				{" "}
+				{length}
+				{" "}
+				you would calculate
+				{" "}
+				<span>
+					a naive entropy of
+					{" "}
+					{naive}
+				</span>
+				.
+				{" "}
+				However, the structure of these passwords (word, digit(s), word, symbol) means that the
+				{" "}
+				<span>
+					actual entropy is
+					{" "}
+					{actual.toFixed(2)}
+					{" "}
+					(equivalent to
+					{" "}
+					{equivalent}
+					{" "}
+					character
+					{equivalent === 1 ? "" : "s"}
+					)
+				</span>
+				.
 			</div>
 		</div>
 	);

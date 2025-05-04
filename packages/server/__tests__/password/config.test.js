@@ -4,7 +4,6 @@ describe("parseConfig", () => {
 	it("returns null errors for valid config", () => {
 		const [, errors] = parseConfig({ min: "1", max: "2", digits: "3" });
 		expect(errors).toBeNull();
-
 	});
 
 	it("parses the numerical values", () => {

@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
 
-
 jest.unstable_mockModule("../../src/password/random", () => ({
 	choice: jest.fn(),
 	randRange: jest.fn(),
