@@ -5,7 +5,7 @@ import { getPassword, TooFewWords } from "./service.js";
 
 const router = Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
 	const [config, errors] = parseConfig(req.query);
 	if (errors) {
 		return res.status(400).json({ errors });
@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
 				fields: ["max", "min"],
 			}] });
 		}
-		next(err);
+		throw err;
 	}
 });
 
