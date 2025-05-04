@@ -19,9 +19,7 @@ RUN npm run postbuild
 
 FROM node:${NODE_RELEASE}-alpine${ALPINE_RELEASE} AS client
 
-USER node
 WORKDIR /home/node
-RUN mkdir -p packages/client/
 
 COPY ./package*.json ./
 COPY ./packages/client/package.json ./packages/client/
