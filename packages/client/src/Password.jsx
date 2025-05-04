@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import PropTypes from "prop-types";
 
 export default function Password(props) {
 	const { loading, onUpdate, password } = props;
@@ -34,9 +33,3 @@ export default function Password(props) {
 		</div>
 	);
 }
-
-Password.propTypes = {
-	loading: PropTypes.bool,
-	onUpdate: PropTypes.func.isRequired,
-	password: PropTypes.string.isRequired,
-};

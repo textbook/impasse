@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import PropTypes from "prop-types";
 
 export default function Input({ error, label, name, onChange, value }) {
 	const id = `${name}-input`;
@@ -29,11 +28,3 @@ export default function Input({ error, label, name, onChange, value }) {
 		</div>
 	);
 }
-
-Input.propTypes = {
-	error: PropTypes.bool,
-	label: PropTypes.string,
-	name: PropTypes.string.isRequired,
-	onChange: PropTypes.func.isRequired,
-	value: PropTypes.number.isRequired,
-};

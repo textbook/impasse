@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import "./Strength.scss";
 
 const CHARACTERS = 44;
@@ -66,12 +64,3 @@ export default function Strength({ config: { digits, max, min }, words }) {
 		</div>
 	);
 }
-
-Strength.propTypes = {
-	config: PropTypes.shape({
-		digits: PropTypes.number.isRequired,
-		max: PropTypes.number.isRequired,
-		min: PropTypes.number.isRequired,
-	}).isRequired,
-	words: PropTypes.number.isRequired,
-};

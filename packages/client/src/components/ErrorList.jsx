@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import "./ErrorList.scss";
 
 const ErrorList = ({ errors: { descriptions } }) => (
@@ -11,11 +9,5 @@ const ErrorList = ({ errors: { descriptions } }) => (
 		</div>
 	</div>
 );
-
-ErrorList.propTypes = {
-	errors: PropTypes.shape({
-		descriptions: PropTypes.arrayOf(PropTypes.string),
-	}).isRequired,
-};
 
 export default ErrorList;

@@ -27,7 +27,7 @@ export default [
 			...react.configs.flat["jsx-runtime"].rules,
 			...jsxA11y.flatConfigs.strict.rules,
 			"react/jsx-tag-spacing": "error",
-			"react/no-unused-prop-types": "error",
+			"react/prop-types": "off",
 			"react-hooks/rules-of-hooks": "error",
 			"react-hooks/exhaustive-deps": "error",
 			"no-console": "error",

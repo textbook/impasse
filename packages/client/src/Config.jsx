@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import { Input } from "./components";
 
 export function Config({ config, errorFields, onChange }) {
@@ -32,15 +30,5 @@ export function Config({ config, errorFields, onChange }) {
 		</>
 	);
 }
-
-Config.propTypes = {
-	config: PropTypes.shape({
-		digits: PropTypes.number,
-		min: PropTypes.number,
-		max: PropTypes.number,
-	}).isRequired,
-	errorFields: PropTypes.arrayOf(PropTypes.string),
-	onChange: PropTypes.func.isRequired,
-};
 
 export default Config;
